@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".NetworkCalls.tvShowFragment"
+        android:orientation="vertical">
+
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_progress_bar"
+            android:layout_gravity="center"
+            android:visibility="visible"
+    />
+
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+                                           android:id="@+id/layout_tv"
+                                           android:layout_height="match_parent">
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:id="@+id/tv_layout"
+                      android:orientation="vertical"
+                      android:layout_height="wrap_content">
+
+
+            <!-- TODO: Update blank fragment layout -->
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:orientation="horizontal"
+                         android:layout_height="wrap_content">
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_airingToday"
+                          android:text="Airing Today"
+                          android:layout_marginBottom="5dp"
+                          android:textSize="20sp"
+                          android:textColor="@color/black"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginStart="20dp"
+                          android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_ViewAll_1"
+                          android:text="View All"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="10dp"
+                          android:clickable="true"
+                          android:textSize="15sp"
+                          android:textColor="@color/cadet_blue"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="20dp"
+                          android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rcv_tv_airingToday"
+                    android:layout_marginStart="10dp"
+            >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:orientation="horizontal"
+                         android:layout_height="wrap_content">
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_OntheAir"
+                          android:text="On the Air"
+                          android:layout_marginBottom="5dp"
+                          android:textSize="20sp"
+                          android:textColor="@color/black"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginStart="20dp"
+                          android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_ViewAll_2"
+                          android:text="View All"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="10dp"
+                          android:clickable="true"
+                          android:textSize="15sp"
+                          android:textColor="@color/cadet_blue"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="20dp"
+                          android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rcv_tv_OntheAir"
+                    android:layout_marginStart="10dp"
+            >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:orientation="horizontal"
+                         android:layout_height="wrap_content">
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_Popular"
+                          android:text="Popular"
+                          android:layout_marginBottom="5dp"
+                          android:textSize="20sp"
+                          android:textColor="@color/black"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginStart="20dp"
+                          android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_ViewAll_3"
+                          android:text="View All"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="10dp"
+                          android:clickable="true"
+                          android:textSize="15sp"
+                          android:textColor="@color/cadet_blue"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="20dp"
+                          android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rcv_tv_Popular"
+                    android:layout_marginStart="10dp"
+            >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:orientation="horizontal"
+                         android:layout_height="wrap_content">
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_TopRated"
+                          android:text="Top Rated"
+                          android:layout_marginBottom="5dp"
+                          android:textSize="20sp"
+                          android:textColor="@color/black"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginStart="20dp"
+                          android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/tv_Text_ViewAll_4"
+                          android:text="View All"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="10dp"
+                          android:clickable="true"
+                          android:textSize="15sp"
+                          android:textColor="@color/cadet_blue"
+                          android:textStyle="bold"
+                          android:padding="5dp"
+                          android:layout_marginTop="20dp"
+                          android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rcv_tv_Toprated"
+                    android:layout_marginStart="10dp"
+            >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

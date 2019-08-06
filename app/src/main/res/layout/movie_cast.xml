@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView android:layout_width="130dp"
+                                       android:layout_height="250dp"
+                                       android:id="@+id/crdview_movie_cast"
+                                       app:cardCornerRadius="5dp"
+                                       android:padding="3dp"
+                                       android:layout_margin="5dp">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+
+
+            <ImageView android:layout_width="match_parent"
+                       android:id="@+id/img_movie_cast"
+                       android:layout_margin="3dp"
+                       android:src="@drawable/avengers"
+                       android:layout_height="160dp"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="40dp"
+                          android:orientation="horizontal">
+
+                <TextView android:layout_width="match_parent"
+                          android:textSize="13sp"
+                          android:padding="3dp"
+                          android:text="Movie name"
+                          android:textStyle="bold"
+                          android:layout_height="match_parent"
+                          android:id="@+id/text_movie_name"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="40dp">
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:text="char name"
+                          android:padding="3dp"
+                          android:textSize="12sp"
+                          android:textStyle="italic"
+                          android:id="@+id/text_movie_char"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

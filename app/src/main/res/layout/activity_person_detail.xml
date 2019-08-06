@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_coordinator_PersonSelected"
+        tools:context=".NetworkCalls.PersonDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:id="@+id/layoutAppbar"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/collapsingToolbar_PersonDetail"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snapMargins"
+                android:background="@color/colorPrimary">
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="match_parent">
+
+                <FrameLayout android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_marginTop="60dp"
+                             android:layout_marginStart="30dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/cast_image"
+                            android:layout_width="150dp"
+                            android:layout_height="160dp"
+                            android:src="@drawable/avengers"
+                            android:padding="5dp"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="#FF000000"
+                            tools:ignore="RedundantNamespace"/>
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                            android:id="@+id/avi_person_progress_bar_poster"
+                            android:layout_width="70dp"
+                            app:indicatorColor="@color/accent"
+                            style="@style/AVLoadingIndicatorView"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            app:indicatorName="BallPulseIndicator"
+                    />
+
+                </FrameLayout>
+
+                <ImageButton android:layout_width="40dp"
+                             android:layout_height="40dp"
+                             android:id="@+id/person_Sel_UpButton"
+                             android:layout_marginTop="20dp"
+                             android:layout_marginEnd="45dp"
+                             android:src="@mipmap/upbutton"
+                             android:background="@null"
+                />
+
+                <TextView android:layout_width="190dp"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/PersonDetail_Name_Text"
+                          android:text="Character Name"
+                          android:gravity="start"
+                          android:textStyle="bold"
+                          android:textColor="@color/white"
+                          android:textSize="18sp"
+                          android:layout_marginTop="40dp"
+                          android:layout_gravity="end"
+                          android:layout_marginBottom="15dp"
+                          android:layout_marginEnd="25dp"
+                />
+
+
+                <TextView android:layout_width="170dp"
+                          android:layout_height="30dp"
+                          android:text="Age"
+                          android:gravity="start"
+                          android:textStyle="bold"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:layout_marginTop="80dp"
+                          android:layout_marginBottom="20dp"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="30dp"
+                />
+
+                <TextView android:layout_width="170dp"
+                          android:layout_height="30dp"
+                          android:id="@+id/PersonDetail_Age_Text"
+                          android:text="Enter Age"
+                          android:gravity="start"
+                          android:textStyle="italic"
+                          android:textColor="@color/white_smoke"
+                          android:textSize="14sp"
+                          android:layout_marginTop="110dp"
+                          android:layout_marginBottom="20dp"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="30dp"
+                />
+
+                <TextView android:layout_width="170dp"
+                          android:layout_height="30dp"
+                          android:text="BirthPlace"
+                          android:gravity="start"
+                          android:textStyle="bold"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:layout_marginTop="140dp"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="30dp"
+                />
+
+                <TextView android:layout_width="170dp"
+                          android:layout_height="wrap_content"
+                          android:text="Enter BirthPlace"
+                          android:id="@+id/PersonDetail_birth_Text"
+                          android:gravity="start"
+                          android:textStyle="italic"
+                          android:textColor="@color/white_smoke"
+                          android:textSize="14sp"
+                          android:layout_marginTop="170dp"
+                          android:layout_gravity="end"
+                          android:layout_marginEnd="30dp"
+                />
+
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_person_Sel"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/person_progress_bar"
+            android:layout_gravity="center"
+            android:visibility="visible"
+    />
+
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollPersonDetail">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="wrap_content">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/text_biography"
+                      android:layout_margin="20dp"
+                      android:text="Biography"
+                      android:textSize="25sp"
+                      android:textStyle="bold"
+            />
+
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                    android:id="@+id/text_input_Person_Bio"
+                    android:textSize="15sp"
+                    app:showTrimExpandedText="true"
+                    app:trimLines="5"
+                    android:layout_marginStart="20dp"
+                    android:textStyle="italic"
+                    android:layout_marginEnd="20dp"
+                    app:trimMode="trimModeLength"
+                    android:textAlignment="gravity"
+                    app:colorClickableText="@color/dark_cyan"
+                    android:text="helloo here write"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:text="Movie"
+                      android:textSize="18sp"
+                      android:id="@+id/text_PersonDetail_Movie"
+                      android:layout_margin="10dp"
+                      android:textStyle="bold|italic"
+                      android:textColor="@color/black"
+                      android:padding="2dp"
+                      android:layout_height="wrap_content"
+            />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rcvPerson_Det_Mov"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView android:layout_width="wrap_content"
+                      android:text="TV Show"
+                      android:textSize="18sp"
+                      android:id="@+id/text_PersonDetail_Tvshow"
+                      android:layout_margin="10dp"
+                      android:textStyle="bold|italic"
+                      android:textColor="@color/black"
+                      android:padding="2dp"
+                      android:layout_height="wrap_content"
+            />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rcvPerson_Det_Tvshow"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

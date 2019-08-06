@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView android:layout_width="340dp"
+                                       android:layout_height="260dp"
+                                       android:id="@+id/crd_tv_large"
+                                       app:cardCornerRadius="5dp"
+                                       android:padding="3dp"
+                                       android:layout_margin="5dp">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+
+
+                <ImageView android:layout_width="match_parent"
+                           android:id="@+id/img_tv_large"
+                           android:layout_margin="3dp"
+                           android:src="@drawable/avengers"
+                           android:layout_height="210dp"/>
+
+                <TextView android:layout_width="match_parent"
+                          android:textSize="18sp"
+                          android:textColor="@color/white"
+                          android:layout_gravity="bottom"
+                          android:text=" Movie Name type here"
+                          android:textStyle="bold"
+                          android:layout_marginStart="10dp"
+                          android:layout_height="30dp"
+                          android:id="@+id/text_tv_large"/>
+
+            </FrameLayout>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="40dp"
+                          android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Genre write here"
+                          android:layout_marginTop="10dp"
+                          android:textSize="15sp"
+                          android:id="@+id/text_tv_genre_large"
+                          android:layout_margin="5dp"/>
+
+                <ImageView android:layout_width="25dp"
+                           android:layout_height="30dp"
+                           android:layout_marginStart="170dp"
+                           android:layout_marginTop="5dp"
+                           android:id="@+id/img_heart_tv_large"
+                           android:src="@drawable/heart"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

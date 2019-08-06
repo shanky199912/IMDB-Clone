@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView android:layout_width="270dp"
+                                       android:id="@+id/crdviewTrailer"
+                                       android:layout_marginEnd="10dp"
+                                       app:cardCornerRadius="5dp"
+                                       android:layout_height="wrap_content">
+
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+
+                <!--<fragment
+                        android:layout_width="300dp"
+                        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+                        android:id="@+id/youtubeview"
+                        android:layout_height="200dp"/>-->
+
+
+                <ImageView android:layout_width="270dp"
+                           android:layout_height="160dp"
+                           android:id="@+id/imageViewItem"
+                           android:src="@drawable/avengers"
+                           android:visibility="gone"/>
+
+                <ImageButton android:layout_width="40dp"
+                             android:layout_height="40dp"
+                             android:id="@+id/playBtn"
+                             android:background="@null"
+                             android:layout_gravity="center"
+                             android:visibility="gone"
+                             android:src="@drawable/baselineplaybtn"
+                />
+
+            </FrameLayout>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:id="@+id/txtTrailerName"
+                      android:text="hello"
+                      android:visibility="gone"
+                      android:textSize="14sp"
+                      android:layout_margin="3dp"
+                      android:padding="3dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
