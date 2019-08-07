@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -21,6 +23,7 @@ import com.example.imdbclone.networking.TVshows.CastItem
 import com.example.imdbclone.networking.TVshows.GenresItem
 import com.example.imdbclone.networking.TVshows.NetworksItem
 import com.example.imdbclone.networking.TVshows.ResultsItem
+import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.activity_tv_detail.*
@@ -54,9 +57,11 @@ class TvDetailActivity : AppCompatActivity() {
             loadTvCast(tvId)
             loadTvShowsSimilar(tvId)
             shareButtonListener()
-            upButtonListener()
-        } else
+            upButoonListener()
+            favButtonListener()
+        } else {
             Toast.makeText(this, "No Network Connection", Toast.LENGTH_LONG).show()
+        }
 
 
     }
@@ -86,6 +91,20 @@ class TvDetailActivity : AppCompatActivity() {
                         text_tv_Name.text = ""
 
                     setGenreTv(response.body()!!.genres)
+
+                    tv_layoutAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOfset ->
+
+                        if (appBarLayout.totalScrollRange + verticalOfset == 0) {
+                            if (response.body()?.name != null)
+                                collapsingToolbar_Tv_Detail.title = response.body()!!.name
+                            else
+                                collapsingToolbar_Tv_Detail.title = ""
+                            toolbar_tv_Sel.visibility = View.VISIBLE
+                        } else {
+                            collapsingToolbar_Tv_Detail.title = ""
+                            toolbar_tv_Sel.visibility = View.INVISIBLE
+                        }
+                    })
 
                     if (tv_SelTxtRat.text != null) {
                         tv_SelTxtRat.text = response.body()!!.voteAverage.toString() + "/10"
@@ -235,6 +254,7 @@ class TvDetailActivity : AppCompatActivity() {
 
         tv_SelShareBtn.setOnClickListener {
 
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             val sharingIntent = Intent(Intent.ACTION_SEND)
             sharingIntent.type = "text/plain"
             val shareBodyText = "Check it out. Your message goes here"
@@ -244,9 +264,19 @@ class TvDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun upButtonListener() {
+    private fun upButoonListener() {
+
         tv_SelUpButton.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             onBackPressed()
+        }
+    }
+
+    private fun favButtonListener(){
+
+        tv_SelFav.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            Toast.makeText(this,"Add to Favourite feature to be out soon!",Toast.LENGTH_LONG).show()
         }
     }
 

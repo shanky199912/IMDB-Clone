@@ -32,12 +32,12 @@
                            android:src="@drawable/avengers"
                            android:visibility="gone"/>
 
-                <ImageButton android:layout_width="40dp"
-                             android:layout_height="40dp"
+                <ImageButton android:layout_width="50dp"
+                             android:layout_height="50dp"
                              android:id="@+id/playBtn"
                              android:background="@null"
                              android:layout_gravity="center"
-                             android:visibility="gone"
+                             android:visibility="visible"
                              android:src="@drawable/baselineplaybtn"
                 />
 
@@ -47,7 +47,7 @@
                       android:id="@+id/txtTrailerName"
                       android:text="hello"
                       android:visibility="gone"
-                      android:textSize="14sp"
+                      android:textSize="13sp"
                       android:layout_margin="3dp"
                       android:padding="3dp"/>
 

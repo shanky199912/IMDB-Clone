@@ -20,6 +20,7 @@ import com.example.imdbclone.NetworkCalls.aboutFragment
 import com.example.imdbclone.NetworkCalls.favoritesFragment
 import com.example.imdbclone.NetworkCalls.movieFragment
 import com.example.imdbclone.NetworkCalls.tvShowFragment
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -56,6 +57,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .add(R.id.container, movieFragment())
             .commit()
 
+        btnSearch.setOnClickListener {
+
+            onSearchRequested()
+        }
+
     }
 
 
@@ -81,24 +87,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
-        val searchMenuItem = menu.findItem(R.id.search)
-        val searchView = searchMenuItem.actionView
+        /*val searchMenuItem = menu.findItem(R.id.search)
         searchMenuItem.setOnMenuItemClickListener {
             onSearchRequested()
 
         }
-        searchView.isHapticFeedbackEnabled
-        searchMenuItem.collapseActionView()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            searchView.autofillHints
-        }
+        SearchManager.OnDismissListener{
+
+        }*/
         return true
     }
 
-    /*override fun onSearchRequested(): Boolean {
+    override fun onSearchRequested(): Boolean {
         onPause()
         return super.onSearchRequested()
-    }*/
+    }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -106,7 +109,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.search -> true
+            R.id.btnSearch -> true
             R.id.nav_view -> true
             else -> super.onOptionsItemSelected(item)
         }

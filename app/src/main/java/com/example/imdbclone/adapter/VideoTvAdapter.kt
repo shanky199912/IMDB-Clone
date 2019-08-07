@@ -50,9 +50,8 @@ class TvHolderVideos(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         }
 
-        if (itemView.txtTrailerName.text != null) {
-            itemView.txtTrailerName.text = tv.name
-
+        if (itemView.txtTrailerName.text != null && itemView.txtTrailerName.text.trim().isNotEmpty()) {
+            itemView.txtTrailerName.text = tv.name!!.trim()
         } else
             itemView.txtTrailerName.text = ""
 

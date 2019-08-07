@@ -19,6 +19,7 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
     RecyclerView.Adapter<MovieViewHolder>() {
 
     private val listGenre: ArrayList<GenresItem?>? = arrayListOf()
+    private val mapGenre: HashMap<Int,String> = hashMapOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
@@ -47,11 +48,12 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
         var genreStr = ""
         for (i in 0 until resultsItem!!.genreIds!!.size) {
 
-            genreStr += MovieGenre().getGenreName(resultsItem.genreIds!![i]!!)
+            genreStr += MovieGenre().getGenreName(resultsItem.genreIds!![i]!!) + " ,"
+
 
         }
         if (genreStr.isNotEmpty()) {
-            holder.itemView.txtGenre.text = (genreStr.substring(0, genreStr.length-1))
+            holder.itemView.txtGenre.text = (genreStr.substring(0, genreStr.length-2))
         } else
             holder.itemView.txtGenre.text = ""
     }

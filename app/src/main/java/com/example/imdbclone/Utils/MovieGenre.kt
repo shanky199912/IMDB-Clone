@@ -13,9 +13,9 @@ class MovieGenre {
 
     fun loadGenreList(genre: ArrayList<GenresItem?>?) {
 
-        genre!!.forEach {
-            genreMap[it!!.id!!] = it.name!!
-        }
+       genre!!.forEach {
+           genreMap[it!!.id!!] = it.name!!.toString()
+       }
 
     }
 

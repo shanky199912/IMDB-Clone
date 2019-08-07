@@ -237,7 +237,7 @@
                               android:layout_height="wrap_content"
                               android:id="@+id/tv_SelTxt_FirstAirdate"
                               android:textStyle="bold"
-                              android:layout_margin="5dp"
+                              android:layout_margin="2dp"
                               android:textSize="15sp"
                     />
 
@@ -245,28 +245,28 @@
                               android:layout_height="wrap_content"
                               android:id="@+id/tv_SelTxt_Runtime"
                               android:textStyle="bold"
-                              android:layout_margin="5dp"
+                              android:layout_margin="2dp"
                               android:textSize="15sp"
                     />
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:id="@+id/tv_SelTxt_Status"
                               android:textStyle="bold"
-                              android:layout_margin="5dp"
+                              android:layout_margin="2dp"
                               android:textSize="15sp"
                     />
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:id="@+id/tv_SelTxt_OriginCountry"
                               android:textStyle="bold"
-                              android:layout_margin="5dp"
+                              android:layout_margin="2dp"
                               android:textSize="15sp"
                     />
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:id="@+id/tv_SelTxt_Networks"
                               android:textStyle="bold"
-                              android:layout_margin="5dp"
+                              android:layout_margin="2dp"
                               android:textSize="15sp"
                     />
                 </LinearLayout>

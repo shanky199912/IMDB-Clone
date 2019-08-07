@@ -3,15 +3,12 @@
 package com.example.imdbclone.NetworkCalls
 
 import android.content.Context
-import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,9 +22,9 @@ import com.example.imdbclone.networking.Client.retrofitCallBack
 import com.example.imdbclone.networking.Client.service
 import com.example.imdbclone.networking.Person.CastItemMovie
 import com.example.imdbclone.networking.Person.CastItemTv
+import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_person_detail.*
-import kotlinx.android.synthetic.main.movie_cast.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -73,6 +70,20 @@ class PersonDetailActivity : AppCompatActivity() {
                         .fit()
                         .centerCrop()
                         .into(cast_image)
+
+                    layoutAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOfset ->
+
+                        if (appBarLayout.totalScrollRange + verticalOfset == 0) {
+                            if (response.body()?.name != null)
+                                collapsingToolbar_PersonDetail.title = response.body()!!.name
+                            else
+                                collapsingToolbar_PersonDetail.title = ""
+                            toolbar_person_Sel.visibility = View.VISIBLE
+                        } else {
+                            collapsingToolbar_PersonDetail.title = ""
+                            toolbar_person_Sel.visibility = View.INVISIBLE
+                        }
+                    })
 
                     if (PersonDetail_Name_Text.text != null) {
                         PersonDetail_Name_Text.text = response.body()!!.name
@@ -200,6 +211,7 @@ class PersonDetailActivity : AppCompatActivity() {
     private fun upButtonListener() {
 
         person_Sel_UpButton.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             onBackPressed()
         }
     }

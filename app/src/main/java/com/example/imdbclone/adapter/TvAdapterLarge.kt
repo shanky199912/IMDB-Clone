@@ -42,11 +42,19 @@ class TvHolderLarge(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .centerCrop()
             .into(itemView.img_tv_large)
 
+        itemView.text_tv_large.visibility = View.VISIBLE
+
         if (itemView.text_tv_large.text != null) {
             itemView.text_tv_large.text = tv.name!!.trimEnd()
         } else {
             itemView.text_tv_large.text = ""
         }
+
+        if (itemView.vote_tv_text.text != null) {
+            itemView.vote_tv_text.text = tv.voteAverage.toString()
+            itemView.vote_tv_star.visibility = View.VISIBLE
+        } else
+            itemView.vote_tv_text.text = ""
 
         itemView.setOnClickListener {
 

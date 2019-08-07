@@ -4,7 +4,9 @@ package com.example.imdbclone.NetworkCalls
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +62,9 @@ class tvShowFragment : Fragment() {
 
         view.tv_Text_ViewAll_1.setOnClickListener {
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                it.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
+            }
             val intent = Intent(context, ViewAllActivity::class.java)
             intent.putExtra("Id", Const.View_All_airingToday)
             context!!.startActivity(intent)
@@ -68,6 +73,9 @@ class tvShowFragment : Fragment() {
 
         view.tv_Text_ViewAll_3.setOnClickListener {
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             val intent = Intent(context, ViewAllActivity::class.java)
             intent.putExtra("Id", Const.View_All_Popular)
             context!!.startActivity(intent)
@@ -75,6 +83,9 @@ class tvShowFragment : Fragment() {
 
         view.tv_Text_ViewAll_2.setOnClickListener {
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             val intent = Intent(context, ViewAllActivity::class.java)
             intent.putExtra("Id", Const.View_All_onTheAir)
             context!!.startActivity(intent)
@@ -82,6 +93,9 @@ class tvShowFragment : Fragment() {
 
         view.tv_Text_ViewAll_4.setOnClickListener {
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             val intent = Intent(context, ViewAllActivity::class.java)
             intent.putExtra("Id", Const.View_All_TopRated)
             context!!.startActivity(intent)

@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -64,6 +65,7 @@ class MovieDetail : AppCompatActivity() {
             loadSimilarMovies(mMovieId)
             backButtonListener()
             shareButtonListener()
+            favButtonListener()
         } else
             Toast.makeText(this, "No Network Connection", Toast.LENGTH_LONG).show()
 
@@ -93,7 +95,7 @@ class MovieDetail : AppCompatActivity() {
                         .into(imageViewBack)
 
                     avi_progress_bar_backdrop.hide()
-                    
+
                     Picasso.get()
                         .load("https://image.tmdb.org/t/p/original" + response.body()?.posterPath)
                         .fit()
@@ -338,7 +340,7 @@ class MovieDetail : AppCompatActivity() {
     private fun backButtonListener() {
 
         movSelUpButton.setOnClickListener {
-
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             onBackPressed()
         }
     }
@@ -368,6 +370,7 @@ class MovieDetail : AppCompatActivity() {
 
         movSelShareBtn.setOnClickListener {
 
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             val sharingIntent = Intent(Intent.ACTION_SEND)
             sharingIntent.type = "text/plain"
             val shareBodyText = "Check it out. Your message goes here"
@@ -375,6 +378,14 @@ class MovieDetail : AppCompatActivity() {
             sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
             startActivity(Intent.createChooser(sharingIntent, "Shearing Options"))
 
+        }
+    }
+
+    private fun favButtonListener() {
+
+        movSelFav.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            Toast.makeText(this, "Add to Favourite feature to be out soon!", Toast.LENGTH_LONG).show()
         }
     }
 }

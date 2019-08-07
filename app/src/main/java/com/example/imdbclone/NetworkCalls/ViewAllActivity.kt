@@ -51,7 +51,7 @@ class ViewAllActivity : AppCompatActivity() {
         }
 
         val mLayoutManager = GridLayoutManager(this@ViewAllActivity, 3)
-        rcv_View_All.layoutManager = mLayoutManager
+        rcv_View_All.layoutManager = mLayoutManager as RecyclerView.LayoutManager?
         mTvShowAdapter = TvAdapterSmall(this@ViewAllActivity, mTvShow)
         rcv_View_All.layoutManager = GridLayoutManager(this@ViewAllActivity, 3)
         rcv_View_All.adapter = mTvShowAdapter
@@ -66,13 +66,13 @@ class ViewAllActivity : AppCompatActivity() {
 
                 if (loading) {
                     if (totalItemCount > previousTotal) {
-                        loading = false;
+                        loading = false
                         previousTotal = totalItemCount
                     }
                 }
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                     loadTvShow(mTvShowType)
-                    loading = true;
+                    loading = true
                 }
 
             }

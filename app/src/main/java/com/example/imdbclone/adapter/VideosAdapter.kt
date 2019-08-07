@@ -80,9 +80,8 @@ class VideosHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
              itemView.youtubeview.initialize("AIzaSyD8U68VCyn7G4NESyovoWSUGbeIYEXDOk0", onInitializedListener)
          }*/
 
-        if (itemView.txtTrailerName.text != null) {
-            itemView.txtTrailerName.text = video.name
-
+        if (itemView.txtTrailerName.text != null && itemView.txtTrailerName.text.trim().isNotEmpty()) {
+            itemView.txtTrailerName.text = video.name!!.trim()
         } else
             itemView.txtTrailerName.text = ""
 

@@ -53,6 +53,8 @@ class tab1 : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_tab1, container, false)
 
+        loadGenres()
+
         val mLayoutManager = LinearLayoutManager(context)
         view!!.rcvNowShowing.layoutManager = mLayoutManager as RecyclerView.LayoutManager?
 
@@ -83,7 +85,7 @@ class tab1 : Fragment() {
             }
         })
 
-        loadGenres()
+        loadMovies()
         return view
     }
 
