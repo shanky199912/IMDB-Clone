@@ -43,14 +43,14 @@ class CastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .centerCrop()
             .into(itemView.cast_image)
 
-        if (itemView.cast_nametv.text != null) {
+        if (cast.name !=null && itemView.cast_nametv.text.trim().isNotEmpty()) {
 
-            itemView.cast_nametv.text = cast.name
+            itemView.cast_nametv.text =  cast.name.trim()
         } else
             itemView.cast_nametv.text = ""
 
-        if (itemView.cast_nametv.text != null) {
-            itemView.cast_character.text = cast.character
+        if (cast.character != null && itemView.cast_character.text.trim().isNotEmpty()) {
+            itemView.cast_character.text = "as ${cast.character.trim()}"
         } else {
             itemView.cast_character.text = ""
         }

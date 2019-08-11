@@ -53,7 +53,6 @@ class tab1 : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_tab1, container, false)
 
-        loadGenres()
 
         val mLayoutManager = LinearLayoutManager(context)
         view!!.rcvNowShowing.layoutManager = mLayoutManager as RecyclerView.LayoutManager?
@@ -85,7 +84,7 @@ class tab1 : Fragment() {
             }
         })
 
-        loadMovies()
+        loadGenres()
         return view
     }
 
@@ -98,13 +97,17 @@ class tab1 : Fragment() {
                 activity?.runOnUiThread {
 
                     tab1_progress_bar.visibility = View.GONE
-                    mNowShowing = response.body()!!.results!!
+                   /* mNowShowing = response.body()!!.results!!
 
                     mNowShowingAdapter = MovieAdapter(context!!, mNowShowing)
                     view!!.rcvNowShowing.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                    view!!.rcvNowShowing.adapter = mNowShowingAdapter
+                    view!!.rcvNowShowing.adapter = mNowShowingAdapter*/
 
-                    mNowShowingAdapter.notifyDataSetChanged();
+                    for (movie in response.body()!!.results!!){
+                        mNowShowing.add(movie)
+                    }
+                    mNowShowingAdapter.notifyDataSetChanged()
+
                     if (response.body()!!.page == response.body()!!.totalPages)
                         pagesOver = true
                     else

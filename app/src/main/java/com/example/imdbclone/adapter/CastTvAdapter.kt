@@ -47,7 +47,7 @@ class TvHolderCast(itemView: View) : RecyclerView.ViewHolder(itemView) {
         } else
             itemView.cast_nametv.text = ""
 
-        if (itemView.cast_character.text != null) {
+        if (tv.character != null) {
             itemView.cast_character.text = "as ${tv.character}"
         } else
             itemView.cast_character.text = ""

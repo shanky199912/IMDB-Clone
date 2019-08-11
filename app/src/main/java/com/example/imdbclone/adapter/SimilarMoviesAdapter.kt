@@ -45,11 +45,13 @@ class SimilarMovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .centerCrop()
             .into(itemView.imgSimilarMovie)
 
-        if (movie.title != null) {
+        if (movie.title != null && movie.title.trim().isNotEmpty()) {
 
-            itemView.txtSimilarMovie.text = movie.originalTitle
-        } else
+            itemView.txtSimilarMovie.text = movie.title.trim()
+        } else {
             itemView.txtSimilarMovie.text = ""
+
+        }
 
         itemView.imgSimilarMovie.visibility = View.VISIBLE
         itemView.txtSimilarMovie.visibility = View.VISIBLE

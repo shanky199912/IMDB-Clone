@@ -7,6 +7,14 @@
         android:layout_height="match_parent"
         tools:context=".SearchActivity">
 
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_bar_search"
+            android:layout_gravity="center"
+            android:visibility="visible"
+    />
+
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

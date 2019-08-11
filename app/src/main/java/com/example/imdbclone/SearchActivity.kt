@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbclone.adapter.SearchResultAdapter
@@ -60,6 +61,8 @@ class SearchActivity : AppCompatActivity() {
 
             response?.let {
                 runOnUiThread {
+
+                    progress_bar_search.visibility = View.GONE
 
                     listSearch = response.body()!!.results as ArrayList<ResultsItem>
                     val searchAdapter = SearchResultAdapter(this@SearchActivity, listSearch)

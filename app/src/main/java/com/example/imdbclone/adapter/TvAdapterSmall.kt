@@ -42,8 +42,8 @@ class TvHolderSmall(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .centerCrop()
             .into(itemView.img_tv_small)
 
-        if (itemView.text_tv_small.text != null) {
-            itemView.text_tv_small.text = tv.name!!.trimEnd()
+        if (tv.name != null && tv.name.trim().isNotEmpty()) {
+            itemView.text_tv_small.text = tv.name.trim()
         } else
             itemView.text_tv_small.text = ""
 

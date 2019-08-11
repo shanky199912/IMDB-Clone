@@ -122,7 +122,7 @@ class MovieDetail : AppCompatActivity() {
 
                     textMovieName.visibility = View.GONE
 
-                    if (textMovieName.text != null) {
+                    if (response.body()!!.title != null) {
 
                         textMovieName.text = response.body()?.originalTitle
                     } else
@@ -134,19 +134,15 @@ class MovieDetail : AppCompatActivity() {
 
                     movSelTxtRat.visibility = View.GONE
 
-                    if (movSelTxtRat.text != null) {
+                    if (response.body()!!.voteAverage != null) {
                         movSelTxtRat.text = response.body()?.voteAverage.toString() + "/10"
                     } else {
                         movSelTxtRat.text = ""
                         movSelImgStar.visibility = View.GONE
                     }
-                    if (response.body()?.voteAverage == null) {
-                        movSelTxtRat.text = ""
-                        movSelImgStar.visibility = View.GONE
-                    }
 
                     movSelTxtDes.visibility = View.GONE
-                    if (movSelTxtDes.text != null) {
+                    if (response.body()!!.overview != null) {
                         movSelTxtDes.text = response.body()?.overview
                     } else
                         movSelTxtDes.text = ""
@@ -154,12 +150,12 @@ class MovieDetail : AppCompatActivity() {
                     movSelTxtDuration.visibility = View.GONE
                     movSelTxtReleasedate.visibility = View.GONE
 
-                    if (movSelTxtDuration.text != null) {
+                    if (response.body()!!.runtime != null) {
                         movSelTxtDuration.text = "Duration: ${response.body()?.runtime.toString()} minutes"
                     } else
                         movSelTxtDuration.text = ""
 
-                    if (movSelTxtReleasedate.text != null) {
+                    if (response.body()!!.releaseDate != null) {
                         movSelTxtReleasedate.text = "Release Date: ${response.body()?.releaseDate.toString()}"
                     } else
                         movSelTxtReleasedate.text = ""

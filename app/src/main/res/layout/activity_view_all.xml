@@ -21,13 +21,29 @@
                   android:layout_height="match_parent">
 
 
-        <androidx.appcompat.widget.Toolbar
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarViewAll"
                 android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="@color/white"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+                <ImageButton android:layout_width="40dp"
+                             android:layout_height="40dp"
+                             android:layout_gravity="start"
+                             android:id="@+id/viewALLuPbUTTON"
+                             android:layout_marginTop="7dp"
+                             android:layout_marginStart="5dp"
+                             android:src="@mipmap/upbutton"
+                             android:background="@null"
+                />
+
+            </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

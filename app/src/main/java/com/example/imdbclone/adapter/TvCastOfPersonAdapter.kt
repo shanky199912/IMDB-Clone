@@ -42,14 +42,14 @@ class TvCastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .centerCrop()
             .into(itemView.img_movie_cast)
 
-        if (itemView.text_movie_name.text != null) {
-            itemView.text_movie_name.text = castTv.originalName
+        if (castTv.name != null && castTv.name.trim().isNotEmpty()) {
+            itemView.text_movie_name.text = castTv.name.trim()
         } else
             itemView.text_movie_name.text = ""
 
 
-        if (itemView.text_movie_char.text != null) {
-            itemView.text_movie_char.text = "as ${castTv.character}"
+        if (castTv.character != null && castTv.character.trim().isNotEmpty()) {
+            itemView.text_movie_char.text = "as ${castTv.character.trim()}"
         } else
             itemView.text_movie_char.text = ""
 

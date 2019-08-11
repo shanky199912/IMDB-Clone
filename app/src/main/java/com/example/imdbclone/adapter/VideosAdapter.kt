@@ -13,6 +13,7 @@ import com.example.imdbclone.Utils.Const
 import com.example.imdbclone.networking.movies.videos.ResultsItem
 import com.google.android.youtube.player.*
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_movie_detail.view.*
 import kotlinx.android.synthetic.main.rcviewtrailer.view.*
 
 class VideosAdapter(private val context: Context, private val listtrailer: ArrayList<ResultsItem?>?) :
@@ -80,10 +81,11 @@ class VideosHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
              itemView.youtubeview.initialize("AIzaSyD8U68VCyn7G4NESyovoWSUGbeIYEXDOk0", onInitializedListener)
          }*/
 
-        if (itemView.txtTrailerName.text != null && itemView.txtTrailerName.text.trim().isNotEmpty()) {
-            itemView.txtTrailerName.text = video.name!!.trim()
-        } else
+        if (video.name != null && itemView.txtTrailerName.text.trim().isNotEmpty()) {
+            itemView.txtTrailerName.text = video.name.trim()
+        } else {
             itemView.txtTrailerName.text = ""
+        }
 
         itemView.txtTrailerName.visibility = View.VISIBLE
     }

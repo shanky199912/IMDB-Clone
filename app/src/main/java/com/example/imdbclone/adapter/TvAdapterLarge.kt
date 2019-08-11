@@ -44,13 +44,13 @@ class TvHolderLarge(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         itemView.text_tv_large.visibility = View.VISIBLE
 
-        if (itemView.text_tv_large.text != null) {
-            itemView.text_tv_large.text = tv.name!!.trimEnd()
+        if (tv.name != null && tv.name.trim().isNotEmpty()) {
+            itemView.text_tv_large.text = tv.name.trim()
         } else {
             itemView.text_tv_large.text = ""
         }
 
-        if (itemView.vote_tv_text.text != null) {
+        if (tv.voteAverage != null) {
             itemView.vote_tv_text.text = tv.voteAverage.toString()
             itemView.vote_tv_star.visibility = View.VISIBLE
         } else

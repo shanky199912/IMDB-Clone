@@ -40,7 +40,7 @@ class TvHolderSimilar(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .centerCrop()
             .into(itemView.imgSimilarMovie)
 
-        if (itemView.txtSimilarMovie.text != null) itemView.txtSimilarMovie.text = tv.name!!.trimEnd()
+        if (tv.name != null) itemView.txtSimilarMovie.text = tv.name.trim()
         else
             itemView.txtSimilarMovie.text = ""
 

@@ -76,7 +76,7 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             if (movie.title != null) {
 
-                itemView.txtmovname.text = movie.originalTitle
+                itemView.txtmovname.text = movie.title.trim()
             } else
                 itemView.txtmovname.text = ""
 

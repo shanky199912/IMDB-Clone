@@ -12,6 +12,9 @@
     <string name="menu_favorites">Favorites</string>
     <string name="menu_about">About</string>
 
+    <string name="search_hint">Search Movies,TvShows..</string>
+    <string name="speak_hint">Speak Movie ,Tv Show ,Person </string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

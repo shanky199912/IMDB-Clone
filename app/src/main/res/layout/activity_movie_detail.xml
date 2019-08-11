@@ -197,8 +197,7 @@
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:id="@+id/movSelTxtRat"
-                          android:text="5.0/10"
-                          android:visibility="gone"
+                          android:visibility="visible"
                           android:textColor="@color/black"
                           android:layout_marginTop="10dp"
                           android:textSize="20sp"/>
@@ -227,8 +226,7 @@
                         app:trimMode="trimModeLength"
                         android:textAlignment="gravity"
                         app:colorClickableText="@color/dark_cyan"
-                        android:text="helloo here write"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"/>
@@ -244,8 +242,8 @@
                               android:textStyle="bold"
                               android:layout_margin="5dp"
                               android:textSize="15sp"
-                              android:visibility="gone"
-                              android:text="Release Date: "/>
+                              android:visibility="visible"
+                    />
 
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -253,8 +251,8 @@
                               android:textStyle="bold"
                               android:layout_margin="5dp"
                               android:textSize="15sp"
-                              android:visibility="gone"
-                              android:text="Duration: "/>
+                              android:visibility="visible"
+                    />
                 </LinearLayout>
 
             </LinearLayout>
