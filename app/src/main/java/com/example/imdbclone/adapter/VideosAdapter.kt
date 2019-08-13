@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.Const
+import com.example.imdbclone.YoutubeActivity
 import com.example.imdbclone.networking.movies.videos.ResultsItem
 import com.google.android.youtube.player.*
 import com.squareup.picasso.Picasso
@@ -45,7 +46,7 @@ class VideosHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.playBtn.visibility = View.GONE
         itemView.txtTrailerName.visibility = View.GONE
         Picasso.get()
-            .load(Const.image_base_url + video!!.key + Const.image_base_url_thumbnail_max)
+            .load(Const.image_base_url + video!!.key + Const.image_base_url_thumbnail_hq)
             .fit()
             .centerCrop()
             .into(itemView.imageViewItem)
@@ -54,32 +55,20 @@ class VideosHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.imageViewItem.visibility = View.VISIBLE
         itemView.playBtn.visibility = View.VISIBLE
 
-        itemView.crdviewTrailer.playBtn.setOnClickListener {
+        /*itemView.crdviewTrailer.playBtn.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Const.Yotube_base_Url + video.key))
             itemView.context.startActivity(intent)
 
+        }*/
+
+        itemView.crdviewTrailer.playBtn.setOnClickListener {
+
+            val intent = Intent(itemView.context,YoutubeActivity::class.java)
+            intent.putExtra("video_id",video.key)
+            itemView.context.startActivity(intent)
         }
 
-        /* itemView.playBtn.setOnClickListener {
-
-             itemView.imageViewItem.visibility = View.GONE
-             itemView.playBtn.visibility = View.GONE
-             itemView.youtubeview.visibility = View.VISIBLE
-
-             val onInitializedListener = object : YouTubePlayer.OnInitializedListener {
-                 override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
-                     p1?.loadVideo(video.key)
-                 }
-
-                 override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) {
-                     //To change body of created functions use File | Settings | File Templates.
-                 }
-
-             }
-
-             itemView.youtubeview.initialize("AIzaSyD8U68VCyn7G4NESyovoWSUGbeIYEXDOk0", onInitializedListener)
-         }*/
 
         if (video.name != null && itemView.txtTrailerName.text.trim().isNotEmpty()) {
             itemView.txtTrailerName.text = video.name.trim()

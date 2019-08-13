@@ -2,6 +2,7 @@ package com.example.imdbclone.NetworkCalls
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,20 +35,21 @@ class ViewAllActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_all)
         setSupportActionBar(toolbarViewAll)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        upbuttonlistener()
 
         val mTvShowType = intent.getIntExtra("Id", -1)
         if (mTvShowType == -1) finish()
 
         when (mTvShowType) {
 
-            Const.View_All_airingToday -> supportActionBar?.title = "Airing Today Tv Shows"
+            Const.View_All_airingToday -> supportActionBar?.title = "     Airing Today Tv Shows"
 
-            Const.View_All_onTheAir -> supportActionBar?.title = "On the Air Tv Shows"
+            Const.View_All_onTheAir -> supportActionBar?.title = "     On the Air Tv Shows"
 
-            Const.View_All_Popular -> supportActionBar?.title = "Popular Tv Shows"
+            Const.View_All_Popular -> supportActionBar?.title = "     Popular Tv Shows"
 
-            Const.View_All_TopRated -> supportActionBar?.title = "Top Rated Tv Shows"
+            Const.View_All_TopRated -> supportActionBar?.title = "     Top Rated Tv Shows"
         }
 
         val mLayoutManager = GridLayoutManager(this@ViewAllActivity, 3)
@@ -191,10 +193,18 @@ class ViewAllActivity : AppCompatActivity() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item!!.itemId == android.R.id.home) {
+    /* override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+         if (item!!.itemId == android.R.id.home) {
+             onBackPressed()
+         }
+         return super.onOptionsItemSelected(item)
+     }*/
+
+    private fun upbuttonlistener() {
+
+        viewALLuPbUTTON.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             onBackPressed()
         }
-        return super.onOptionsItemSelected(item)
     }
 }

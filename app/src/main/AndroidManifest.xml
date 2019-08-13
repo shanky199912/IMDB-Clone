@@ -12,15 +12,20 @@
             android:roundIcon="@mipmap/ic_launche_icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".YoutubeActivity">
+        </activity>
 
-        <provider android:authorities="com.example.imdbclone.MySuggestionProvider"
-                  android:name=".MySuggestionProvider"/>
+        <provider
+                android:name=".MySuggestionProvider"
+                android:authorities="com.example.imdbclone.MySuggestionProvider"/>
 
-        <activity android:name=".SearchActivity"
-                  android:launchMode="singleTop">
+        <activity
+                android:name=".SearchActivity"
+                android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
+
             <meta-data
                     android:name="android.app.searchable"
                     android:resource="@xml/searchable"/>

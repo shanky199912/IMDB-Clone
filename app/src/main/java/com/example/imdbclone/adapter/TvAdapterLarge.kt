@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbclone.NetworkCalls.TvDetailActivity
 import com.example.imdbclone.NetworkCalls.ViewAllActivity
+import com.example.imdbclone.NetworkCalls.tvShowFragment
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.Const
+import com.example.imdbclone.Utils.MovieGenre
+import com.example.imdbclone.Utils.TvGenre
 import com.example.imdbclone.networking.TVshows.ResultsItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
@@ -28,6 +31,24 @@ class TvAdapterLarge(private val context: Context, private val listTv: ArrayList
     override fun onBindViewHolder(holder: TvHolderLarge, position: Int) {
         val tv = listTv[position]
         holder.bind(tv)//To change body of created functions use File | Settings | File Templates.
+
+
+        setGenres(holder, listTv[position])
+    }
+
+    private fun setGenres(holder: TvHolderLarge, resultsItem: ResultsItem) {
+
+        var genreStr = ""
+        for (i in 0 until resultsItem.genreIds!!.size) {
+
+            genreStr += TvGenre().getGenreNameTv(resultsItem.genreIds[i]!!) + " ,"
+
+
+        }
+        if (genreStr.isNotEmpty()) {
+            holder.itemView.text_tv_genre_large.text = (genreStr.substring(0, genreStr.length-2))
+        } else
+            holder.itemView.text_tv_genre_large.text = ""
     }
 
 }

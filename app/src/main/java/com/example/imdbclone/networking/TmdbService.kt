@@ -4,12 +4,11 @@ import com.example.imdbclone.networking.Person.PersonDetail
 import com.example.imdbclone.networking.Person.ResponseMovieCredits
 import com.example.imdbclone.networking.Person.ResponseTvCredits
 import com.example.imdbclone.networking.Search.ResponseSearch
-import com.example.imdbclone.networking.TVshows.ResponseOnTheAir
-import com.example.imdbclone.networking.TVshows.ResponseSimilarTv
-import com.example.imdbclone.networking.TVshows.ResponseTvAiringToday
-import com.example.imdbclone.networking.TVshows.ResponseTvDetails
+import com.example.imdbclone.networking.TVshows.*
 import com.example.imdbclone.networking.TVshows.videos.ResponseVideoTv
 import com.example.imdbclone.networking.movies.*
+import com.example.imdbclone.networking.movies.ResponsePopular
+import com.example.imdbclone.networking.movies.ResponseTopRated
 import com.example.imdbclone.networking.movies.videos.VideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -76,7 +75,8 @@ interface TmdbService {
 
     @GET("genre/movie/list")
     fun getMovieGenreList(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("lang") lang: String
     ): Call<Genre>
 
     //Person
@@ -147,6 +147,12 @@ interface TmdbService {
         @Path("tv_id") id: Int,
         @Query("api_key") apiKey: String
     ): Call<ResponseTvDetails>
+
+    @GET("genre/movie/list")
+    fun getTvGenreList(
+        @Query("api_key") apiKey: String,
+        @Query("lang") lang: String
+    ): Call<ResponseGenre>
 
     //Search
     @GET("search/multi")

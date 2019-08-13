@@ -6,11 +6,10 @@
               android:layout_height="wrap_content">
 
 
-    <androidx.cardview.widget.CardView android:layout_width="360dp"
+    <androidx.cardview.widget.CardView android:layout_width="390dp"
                                        android:layout_height="280dp"
                                        android:id="@+id/crd_tv_large"
                                        app:cardCornerRadius="5dp"
-                                       android:padding="3dp"
                                        android:layout_margin="5dp">
 
         <LinearLayout android:layout_width="match_parent"

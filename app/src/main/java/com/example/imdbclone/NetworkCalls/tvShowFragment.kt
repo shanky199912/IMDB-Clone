@@ -11,15 +11,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.Const
+import com.example.imdbclone.Utils.MovieGenre
+import com.example.imdbclone.Utils.TvGenre
 import com.example.imdbclone.adapter.TvAdapterLarge
 import com.example.imdbclone.adapter.TvAdapterSmall
 import com.example.imdbclone.networking.Client.API_KEY
 import com.example.imdbclone.networking.Client.retrofitCallBack
 import com.example.imdbclone.networking.Client.service
+import com.example.imdbclone.networking.TVshows.GenresItem
 import com.example.imdbclone.networking.TVshows.ResultsItem
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
@@ -39,6 +42,7 @@ class tvShowFragment : Fragment() {
 
     private val presentPage: Int = 1
     private var listTv: ArrayList<ResultsItem> = arrayListOf()
+    private var mapTv:HashMap<Int,String> = hashMapOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +58,7 @@ class tvShowFragment : Fragment() {
         val isConnected = activeNetworkInfo?.isConnected == true
 
         if (isConnected) {
-            loadTvShowsAiringToday()
-            loadTvShowOnTheAir()
-            loadTvShowPopular()
-            loadTvShowTopRated()
+            loadFragment()
         }
 
         view.tv_Text_ViewAll_1.setOnClickListener {
@@ -104,6 +105,53 @@ class tvShowFragment : Fragment() {
         return view
     }
 
+    private fun loadFragment(){
+
+        if (TvGenre().isGenreListLoadedTv()){
+            loadTvShowsAiringToday()
+            loadTvShowOnTheAir()
+            loadTvShowPopular()
+            loadTvShowTopRated()
+        }
+        else{
+            loadGenres()
+        }
+    }
+
+    private fun loadGenres(){
+
+        service.getTvGenreList(API_KEY,"en-US").enqueue(retrofitCallBack{
+            response, throwable ->
+
+            response?.let {
+
+                activity!!.runOnUiThread {
+
+                    tv_progress_bar.visibility = View.GONE
+                    TvGenre().loadGenreListTv(response.body()!!.genres)
+                    loadTvShowOnTheAir()
+                    loadTvShowPopular()
+                    loadTvShowTopRated()
+                    loadTvShowsAiringToday()
+
+                }
+            }
+        })
+    }
+
+    private fun loadGenreListTv(genres:List<GenresItem?>?){
+
+        for (i in 0 until genres!!.size){
+
+            mapTv[genres[i]!!.id!!] = genres[i]!!.name.toString()
+        }
+    }
+
+    public fun getGenreName(genreId:Int):String?{
+
+        return mapTv[genreId]
+    }
+
     private fun loadTvShowsAiringToday() {
 
         service.listAiringToday(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
@@ -117,6 +165,9 @@ class tvShowFragment : Fragment() {
                     rcv_tv_airingToday.layoutManager =
                         LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
                     rcv_tv_airingToday.adapter = airingTodayAdapter
+                    val snap = LinearSnapHelper()
+                    rcv_tv_airingToday.onFlingListener = null
+                    snap.attachToRecyclerView(rcv_tv_airingToday)
                     setVisibility()
                 }
             }
@@ -138,6 +189,9 @@ class tvShowFragment : Fragment() {
                     rcv_tv_OntheAir.layoutManager =
                         LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
                     rcv_tv_OntheAir.adapter = onTheAirAdapter
+                    val snap = LinearSnapHelper()
+                    rcv_tv_OntheAir.onFlingListener = null
+                    snap.attachToRecyclerView(rcv_tv_OntheAir)
                     setVisibility()
                 }
             }
@@ -160,6 +214,9 @@ class tvShowFragment : Fragment() {
                     val popularAdapter = TvAdapterLarge(context!!, listTv)
                     rcv_tv_Popular.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
                     rcv_tv_Popular.adapter = popularAdapter
+                    val snap = LinearSnapHelper()
+                    rcv_tv_Popular.onFlingListener = null
+                    snap.attachToRecyclerView(rcv_tv_Popular)
                     setVisibility()
                 }
             }
@@ -181,6 +238,9 @@ class tvShowFragment : Fragment() {
                     rcv_tv_Toprated.layoutManager =
                         LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
                     rcv_tv_Toprated.adapter = topRatedAdapter
+                    val snap = LinearSnapHelper()
+                    rcv_tv_Toprated.onFlingListener = null
+                    snap.attachToRecyclerView(rcv_tv_Toprated)
                     setVisibility()
                 }
             }

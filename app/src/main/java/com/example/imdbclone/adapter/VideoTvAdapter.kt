@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.Const
+import com.example.imdbclone.YoutubeActivity
 import com.example.imdbclone.networking.TVshows.videos.ResultsItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rcviewtrailer.view.*
@@ -45,7 +46,11 @@ class TvHolderVideos(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         itemView.crdviewTrailer.playBtn.setOnClickListener {
 
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Const.Yotube_base_Url + tv.key))
+            /*val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Const.Yotube_base_Url + tv.key))
+            itemView.context.startActivity(intent)*/
+
+            val intent = Intent(itemView.context, YoutubeActivity::class.java)
+            intent.putExtra("video_id", tv.key)
             itemView.context.startActivity(intent)
 
         }
