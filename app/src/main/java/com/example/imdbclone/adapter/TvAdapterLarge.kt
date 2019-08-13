@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imdbclone.NetworkCalls.OnBottomReachedListener
 import com.example.imdbclone.NetworkCalls.TvDetailActivity
 import com.example.imdbclone.NetworkCalls.ViewAllActivity
 import com.example.imdbclone.NetworkCalls.tvShowFragment
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.rcv_tv_large.view.*
 
 class TvAdapterLarge(private val context: Context, private val listTv: ArrayList<ResultsItem>) :
     RecyclerView.Adapter<TvHolderLarge>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvHolderLarge {
         return TvHolderLarge(LayoutInflater.from(context).inflate(R.layout.rcv_tv_large, parent, false))
     }
@@ -33,8 +35,10 @@ class TvAdapterLarge(private val context: Context, private val listTv: ArrayList
         holder.bind(tv)//To change body of created functions use File | Settings | File Templates.
 
 
+
         setGenres(holder, listTv[position])
     }
+
 
     private fun setGenres(holder: TvHolderLarge, resultsItem: ResultsItem) {
 
@@ -46,7 +50,7 @@ class TvAdapterLarge(private val context: Context, private val listTv: ArrayList
 
         }
         if (genreStr.isNotEmpty()) {
-            holder.itemView.text_tv_genre_large.text = (genreStr.substring(0, genreStr.length-2))
+            holder.itemView.text_tv_genre_large.text = (genreStr.substring(0, genreStr.length - 2))
         } else
             holder.itemView.text_tv_genre_large.text = ""
     }

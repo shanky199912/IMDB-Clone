@@ -43,13 +43,13 @@ class ViewAllActivity : AppCompatActivity() {
 
         when (mTvShowType) {
 
-            Const.View_All_airingToday -> supportActionBar?.title = "     Airing Today Tv Shows"
+            Const.View_All_airingToday -> supportActionBar?.title = "       Airing Today Tv Shows"
 
-            Const.View_All_onTheAir -> supportActionBar?.title = "     On the Air Tv Shows"
+            Const.View_All_onTheAir -> supportActionBar?.title = "       On the Air Tv Shows"
 
-            Const.View_All_Popular -> supportActionBar?.title = "     Popular Tv Shows"
+            Const.View_All_Popular -> supportActionBar?.title = "       Popular Tv Shows"
 
-            Const.View_All_TopRated -> supportActionBar?.title = "     Top Rated Tv Shows"
+            Const.View_All_TopRated -> supportActionBar?.title = "       Top Rated Tv Shows"
         }
 
         val mLayoutManager = GridLayoutManager(this@ViewAllActivity, 3)
@@ -57,29 +57,44 @@ class ViewAllActivity : AppCompatActivity() {
         mTvShowAdapter = TvAdapterSmall(this@ViewAllActivity, mTvShow)
         rcv_View_All.layoutManager = GridLayoutManager(this@ViewAllActivity, 3)
         rcv_View_All.adapter = mTvShowAdapter
-        rcv_View_All.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        /* rcv_View_All.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-                super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount = mLayoutManager.childCount
-                val totalItemCount = mLayoutManager.itemCount
-                val firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
+             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false
-                        previousTotal = totalItemCount
-                    }
-                }
-                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                 super.onScrolled(recyclerView, dx, dy)
+                 val visibleItemCount = mLayoutManager.childCount
+                 val totalItemCount = mLayoutManager.itemCount
+                 val firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
+
+                 if (loading) {
+                     if (totalItemCount > previousTotal) {
+                         loading = false
+                         previousTotal = totalItemCount
+                     }
+                 }
+                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                     loadTvShow(mTvShowType)
+                     loading = true
+                 }
+
+             }
+
+         })*/
+
+        mTvShowAdapter.setonBottomReachedListener(object : OnBottomReachedListener {
+            override fun onBottomReached(position: Int) {
+
+                if (pagesOver) {
+                    return
+                } else {
+                    presentPage++
                     loadTvShow(mTvShowType)
-                    loading = true
                 }
-
             }
 
         })
+
 
         loadTvShow(mTvShowType)
 

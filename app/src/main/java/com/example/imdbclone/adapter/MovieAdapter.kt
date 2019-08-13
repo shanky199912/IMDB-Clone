@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbclone.NetworkCalls.MovieDetail
+import com.example.imdbclone.NetworkCalls.OnBottomReachedListener
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.MovieGenre
 import com.example.imdbclone.networking.movies.GenresItem
@@ -20,6 +21,7 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
 
     private val listGenre: ArrayList<GenresItem?>? = arrayListOf()
     private val mapGenre: HashMap<Int,String> = hashMapOf()
+    private lateinit var onBottomReachedListener: OnBottomReachedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
@@ -33,14 +35,21 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
+        if (position == listMovie.size - 1) {
+
+            onBottomReachedListener.onBottomReached(position)
+        }
+
         val movie = listMovie[position]
         holder.bind(movie)
-
-
 
         setGenres(holder, listMovie[position])
 
         //To change body of created functions use File | Settings | File Templates.
+    }
+    public fun setonBottomReachedListener(onBottomReachedListener: OnBottomReachedListener) {
+
+        this.onBottomReachedListener = onBottomReachedListener
     }
 
     private fun setGenres(holder: MovieViewHolder, resultsItem: ResultsItem?) {

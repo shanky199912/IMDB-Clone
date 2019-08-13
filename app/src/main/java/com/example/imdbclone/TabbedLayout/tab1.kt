@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbclone.BroadCast.ConnectivityBroadcastReciever
 import com.example.imdbclone.BroadCast.ConnectivityRecieverListener
+import com.example.imdbclone.NetworkCalls.OnBottomReachedListener
 
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.MovieGenre
@@ -92,10 +93,20 @@ class tab1 : Fragment() {
         })*/
 
 
-        if (isNetworkAvailable()) {
-            isFragmentLoaded = true
-            loadFragment()
-        }
+        mNowShowingAdapter.setonBottomReachedListener(object : OnBottomReachedListener {
+            override fun onBottomReached(position: Int) {
+
+                if (pagesOver) {
+                    return
+                } else {
+                    presentPage++
+                    isFragmentLoaded = true
+                    loadFragment()
+
+                }
+            }
+
+        })
 
         return view
     }
@@ -169,7 +180,7 @@ class tab1 : Fragment() {
 
     private fun loadGenres() {
 
-        service.getMovieGenreList(API_KEY,"en-US").enqueue(retrofitCallBack { response, throwable ->
+        service.getMovieGenreList(API_KEY, "en-US").enqueue(retrofitCallBack { response, throwable ->
 
             response?.let {
 
@@ -201,21 +212,21 @@ class tab1 : Fragment() {
                 activity?.runOnUiThread {
 
                     tab1_progress_bar.visibility = View.GONE
-                    val mNowShowing = response.body()!!.results!!
+                    /*  val mNowShowing = response.body()!!.results!!
 
-                    val mNowShowingAdapter = MovieAdapter(context!!, mNowShowing)
-                    view!!.rcvNowShowing.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                    view!!.rcvNowShowing.adapter = mNowShowingAdapter
-                    /* for (movie in response.body()!!.results!!) {
-                         mNowShowing.add(movie)
-                     }*/
+                      val mNowShowingAdapter = MovieAdapter(context!!, mNowShowing)
+                      view!!.rcvNowShowing.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                      view!!.rcvNowShowing.adapter = mNowShowingAdapter*/
+                    for (movie in response.body()!!.results!!) {
+                        mNowShowing.add(movie)
+                    }
                     mNowShowingAdapter.notifyDataSetChanged()
 
 
-                    /* if (response.body()!!.page == response.body()!!.totalPages)
-                         pagesOver = true
-                     else
-                         presentPage++*/
+                    if (response.body()!!.page == response.body()!!.totalPages)
+                        pagesOver = true
+                    else
+                        presentPage++
 
                 }
 

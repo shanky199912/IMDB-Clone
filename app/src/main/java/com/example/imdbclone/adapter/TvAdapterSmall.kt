@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imdbclone.NetworkCalls.OnBottomReachedListener
 import com.example.imdbclone.NetworkCalls.TvDetailActivity
 import com.example.imdbclone.NetworkCalls.ViewAllActivity
 import com.example.imdbclone.R
@@ -17,6 +18,9 @@ import kotlinx.android.synthetic.main.rcv_tv_small.view.*
 
 class TvAdapterSmall(private val context: Context, private val listTv: ArrayList<ResultsItem>) :
     RecyclerView.Adapter<TvHolderSmall>() {
+
+    private lateinit var onBottomReachedListener: OnBottomReachedListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvHolderSmall {
         return TvHolderSmall(LayoutInflater.from(context).inflate(R.layout.rcv_tv_small, parent, false))
     }
@@ -26,11 +30,21 @@ class TvAdapterSmall(private val context: Context, private val listTv: ArrayList
     }
 
     override fun onBindViewHolder(holder: TvHolderSmall, position: Int) {
+        if (position == listTv.size - 1) {
+
+            onBottomReachedListener.onBottomReached(position)
+        }
         val tv = listTv[position]
         holder.bind(tv)//To change body of created functions use File | Settings | File Templates.
     }
 
+    public fun setonBottomReachedListener(onBottomReachedListener: OnBottomReachedListener) {
+
+        this.onBottomReachedListener = onBottomReachedListener
+    }
+
 }
+
 
 class TvHolderSmall(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
