@@ -2,15 +2,18 @@ package com.example.imdbclone.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imdbclone.Database.AppDatabase
+import com.example.imdbclone.Database.Movie
 import com.example.imdbclone.NetworkCalls.MovieDetail
 import com.example.imdbclone.NetworkCalls.OnBottomReachedListener
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.MovieGenre
-import com.example.imdbclone.networking.movies.GenresItem
 import com.example.imdbclone.networking.movies.ResultsItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recyclerview.view.*
@@ -19,13 +22,17 @@ import kotlinx.android.synthetic.main.recyclerview.view.imgmovie
 class MovieAdapter(val context: Context, private val listMovie: ArrayList<ResultsItem?>) :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val listGenre: ArrayList<GenresItem?>? = arrayListOf()
-    private val mapGenre: HashMap<Int,String> = hashMapOf()
     private lateinit var onBottomReachedListener: OnBottomReachedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
-        return MovieViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview, parent, false))
+        return MovieViewHolder(
+            LayoutInflater.from(context).inflate(
+                R.layout.recyclerview,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -40,13 +47,24 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
             onBottomReachedListener.onBottomReached(position)
         }
 
+        setGenres(holder, listMovie[position])
+
         val movie = listMovie[position]
         holder.bind(movie)
 
-        setGenres(holder, listMovie[position])
+        if (AppDatabase.getDatabase(context).movieDao().isMovieFav(listMovie[position]!!.id!!)){
+            holder.itemView.imgHeart.setImageResource(R.drawable.baselinefav_sel)
+            holder.itemView.imgHeart.isEnabled = false
+        }
+        else{
+            holder.itemView.imgHeart.setImageResource(R.drawable.baselinefav_notsel)
+            holder.itemView.imgHeart.isEnabled = true
+        }
+
 
         //To change body of created functions use File | Settings | File Templates.
     }
+
     public fun setonBottomReachedListener(onBottomReachedListener: OnBottomReachedListener) {
 
         this.onBottomReachedListener = onBottomReachedListener
@@ -62,7 +80,7 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
 
         }
         if (genreStr.isNotEmpty()) {
-            holder.itemView.txtGenre.text = (genreStr.substring(0, genreStr.length-2))
+            holder.itemView.txtGenre.text = (genreStr.substring(0, genreStr.length - 2))
         } else
             holder.itemView.txtGenre.text = ""
     }
@@ -79,8 +97,8 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             Picasso.get()
                 .load("https://image.tmdb.org/t/p/original" + movie!!.posterPath)
-                .fit()
-                .centerCrop()
+                .resize(400, 500)
+                .onlyScaleDown()
                 .into(itemView.imgmovie)
 
             if (movie.title != null) {
@@ -89,10 +107,11 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             } else
                 itemView.txtmovname.text = ""
 
-            if (movie.voteAverage != null && movie.voteAverage > 0) {
+            if (itemView.txtRat.text != null && movie.voteAverage!! > 0) {
                 itemView.txtRat.text = movie.voteAverage.toString()
+                itemView.imgStar.visibility = View.VISIBLE
             } else {
-                itemView.txtRat.visibility = View.GONE
+                itemView.txtRat.text = ""
                 itemView.imgStar.visibility = View.GONE
             }
 
@@ -105,6 +124,41 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 intent.putExtra("MovieId", movie.id)
                 itemView.context.startActivity(intent)
             }
+
+
+            itemView.imgHeart.setOnClickListener {
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                AppDatabase.getDatabase(context!!).movieDao().addMovToFav(
+                    Movie(
+                        MovieId = movie.id,
+                        PosterPath = movie.posterPath,
+                        name = movie.title
+                    )
+                )
+                Toast.makeText(
+                    context!!,
+                    "${movie.title!!.trim()} is added to Favourites",
+                    Toast.LENGTH_SHORT
+                ).show()
+                itemView.imgHeart.setImageResource(R.drawable.baselinefav_sel)
+                itemView.imgHeart.isEnabled = false
+            }
+
+            // remove movie from fav.
+            /*if (AppDatabase.getDatabase(context!!).movieDao().isMovieFav(movie.id!!)) {
+                itemView.imgHeart.setImageResource(R.drawable.baselinefav_sel)
+                itemView.imgHeart.setOnClickListener {
+                    AppDatabase.getDatabase(context!!).movieDao().removeMovieFromFav(
+                        Movie(
+                            MovieId = movie.id,
+                            PosterPath = movie.posterPath,
+                            name = movie.title
+                        )
+                    )
+                    Toast.makeText(context!!, "Removed from favourites", Toast.LENGTH_SHORT).show()
+                    itemView.imgHeart.setImageResource(R.drawable.baselinefav_notsel)
+                }
+            }*/
 
         }
 

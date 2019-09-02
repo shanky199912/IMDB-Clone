@@ -39,9 +39,8 @@
         <TextView android:layout_width="match_parent"
                   android:layout_height="80dp"
                   android:id="@+id/txtmovname"
-                  android:textSize="20sp"
+                  android:textSize="18sp"
                   android:layout_margin="5dp"
-                  android:text="Spider Man Home Coming"
                   android:textStyle="bold|italic"
                   android:padding="5dp"
         />
@@ -62,6 +61,7 @@
                     <ImageView android:layout_width="20dp"
                                android:id="@+id/imgStar"
                                android:layout_height="30dp"
+                               android:visibility="gone"
                                android:src="@drawable/star"/>
 
                 </LinearLayout>
@@ -77,15 +77,15 @@
                               android:id="@+id/txtGenre"
                               android:textSize="12sp"
                               android:padding="2dp"
-                              android:text="Action, Adventure, sci-fi"/>
+                    />
 
 
                 </LinearLayout>
 
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_height="wrap_content">
-                    <ImageView android:layout_width="20dp"
-                               android:layout_height="25dp"
+                    <ImageView android:layout_width="15dp"
+                               android:layout_height="20dp"
                                android:id="@+id/imgHeart"
                                android:layout_marginStart="210dp"
                                android:src="@drawable/heart"

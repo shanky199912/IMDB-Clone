@@ -30,11 +30,14 @@ class SearchResultAdapter(private val context: Context, private val mlistSearch:
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
 
-        Picasso.get()
-            .load(Const.img_url + mlistSearch[position].posterPath)
-            .fit()
-            .centerCrop()
-            .into(holder.itemView.image_view_poster_search)
+        if (mlistSearch[position].posterPath != null) {
+            Picasso.get()
+                .load(Const.img_url + mlistSearch[position].posterPath)
+                .fit()
+                .centerCrop()
+                .into(holder.itemView.image_view_poster_search)
+        } else
+            holder.itemView.image_view_poster_search.resources.getDrawable(R.drawable.image_not_available)
 
         if (mlistSearch[position].title != null &&
             mlistSearch[position].title!!.trim().isNotEmpty()

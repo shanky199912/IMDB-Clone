@@ -6,7 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.imdbclone.FavMovieFragment
+import com.example.imdbclone.FavTvFragment
 import com.example.imdbclone.R
+import com.example.imdbclone.adapter.FavPagerAdapter
+import kotlinx.android.synthetic.main.fragment_favorites.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,7 +29,16 @@ class favoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        val view = inflater.inflate(R.layout.fragment_favorites, container, false)
+        val adapter = FavPagerAdapter(childFragmentManager, context!!)
+        val favMovieFrag = FavMovieFragment()
+        val favTvFrag = FavTvFragment()
+        adapter.addFrag(favMovieFrag,"Movies")
+        adapter.addFrag(favTvFrag,"Tv Shows")
+        view.viewpager.adapter = adapter
+        view.viewpagertab.setViewPager(view.viewpager)
+
+        return view
     }
 
 

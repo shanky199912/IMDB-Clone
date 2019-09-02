@@ -36,14 +36,18 @@ class TvHolderCast(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(tv: CastItem) {
 
-        Picasso.get()
-            .load(Const.img_url + tv.profilePath)
-            .fit()
-            .centerCrop()
-            .into(itemView.cast_image)
+        if (tv.profilePath != null) {
+            Picasso.get()
+                .load(Const.img_url + tv.profilePath)
+                .fit()
+                .centerCrop()
+                .into(itemView.cast_image)
+        } else {
+            itemView.cast_image.resources.getDrawable(R.drawable.image_not_available)
+        }
 
-        if (itemView.cast_nametv.text != null) {
-            itemView.cast_nametv.text = tv.name
+        if (tv.name!=null && tv.name.trim().isNotEmpty()) {
+            itemView.cast_nametv.text = tv.name.trim()
         } else
             itemView.cast_nametv.text = ""
 

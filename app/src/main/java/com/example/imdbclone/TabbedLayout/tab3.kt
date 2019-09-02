@@ -67,6 +67,7 @@ class tab3 : Fragment() {
         view.rcvTopRated.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         view.rcvTopRated.adapter = mTopRatedAdapter
 
+        loadMovies()
 
         mTopRatedAdapter.setonBottomReachedListener(object : OnBottomReachedListener {
             override fun onBottomReached(position: Int) {

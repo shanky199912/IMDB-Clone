@@ -2,10 +2,14 @@ package com.example.imdbclone.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imdbclone.Database.AppDatabase
+import com.example.imdbclone.Database.TvShows
 import com.example.imdbclone.NetworkCalls.TvDetailActivity
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.Const
@@ -44,10 +48,25 @@ class TvHolderSimilar(itemView: View) : RecyclerView.ViewHolder(itemView) {
         else
             itemView.txtSimilarMovie.text = ""
 
+
+
         itemView.setOnClickListener {
             val intent = Intent(itemView.context, TvDetailActivity::class.java)
             intent.putExtra("Tv_Id", tv.id)
             itemView.context.startActivity(intent)
+        }
+
+        itemView.imgheartSimilarMov.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            AppDatabase.getDatabase(itemView.context!!).tvshowDao().addTvToFav(
+                TvShows(
+                    TvShowId = tv.id,
+                    PosterPath = tv.posterPath,
+                    name = tv.name!!.trim()
+                )
+            )
+            Toast.makeText(itemView.context!!, "${tv.name.trim()} is added to Favourites", Toast.LENGTH_SHORT).show()
+            itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_sel)
         }
     }
 }

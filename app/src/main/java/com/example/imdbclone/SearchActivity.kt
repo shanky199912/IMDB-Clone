@@ -62,6 +62,11 @@ class SearchActivity : AppCompatActivity() {
             response?.let {
                 runOnUiThread {
 
+                    if (!response.isSuccessful){
+                        progress_bar_search.visibility = View.GONE
+                        rcv_search.visibility = View.GONE
+
+                    }
                     progress_bar_search.visibility = View.GONE
 
                     listSearch = response.body()!!.results as ArrayList<ResultsItem>

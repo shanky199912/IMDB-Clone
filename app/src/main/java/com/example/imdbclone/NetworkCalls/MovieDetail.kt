@@ -50,7 +50,7 @@ class MovieDetail : AppCompatActivity() {
         val mMovieId = intent.getIntExtra("MovieId", -1)
         if (mMovieId == -1) finish()
 
-        layout_coordinator_MovieSelected.visibility = View.GONE
+        scrollMovie.visibility = View.GONE
         avi_progress_bar_backdrop.hide()
         avi_progress_bar_poster.hide()
 
@@ -87,7 +87,6 @@ class MovieDetail : AppCompatActivity() {
 
                 runOnUiThread {
 
-                    movie_progress_bar_detail.visibility = View.GONE
                     Picasso.get()
                         .load("https://image.tmdb.org/t/p/original" + response.body()?.backdropPath)
                         .fit()
@@ -178,64 +177,27 @@ class MovieDetail : AppCompatActivity() {
      */
     private fun loadMovieTrailers(mMovieId: Int) {
 
-        /*
- *//*
-                    val playbtn = findViewById<ImageButton>(R.id.playBtn)
-                    val youTubePlayerFragment =
-                        supportFragmentManager.findFragmentById(R.id.youtubeview) as YouTubePlayerSupportFragment
-
-                    val onInitializedListener = object : YouTubePlayer.OnInitializedListener {
-                        override fun onInitializationSuccess(
-                            p0: YouTubePlayer.Provider?,
-                            p1: YouTubePlayer?,
-                            p2: Boolean
-                        ) {
-
-                            p1!!.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-                            p1.loadVideo(listTrailer?.get(0)!!.key)
-
-                        }
-
-                        override fun onInitializationFailure(
-                            p0: YouTubePlayer.Provider?,
-                            p1: YouTubeInitializationResult?
-                        ) {
-
-                            Log.e("YoutubeResponse", "Youtube Player View initialization failed")
-                            //To change body of created functions use File | Settings | File Templates.
-                        }
-
-                    }
-
-                    youTubePlayerFragment.initialize(Const.YouTube_Key, onInitializedListener)*//*
-
-
-                }
-
-                //To change body of created functions use File | Settings | File Templates.
-            }
-
-        })*/
 
         service.getMovieVideos(mMovieId, API_KEY).enqueue(retrofitCallBack { response, throwable ->
 
             response?.let {
                 runOnUiThread {
-                    if (response.isSuccessful) {
-                        movie_progress_bar_detail.visibility = View.GONE
-                        listTrailer =
-                            response.body()?.results as ArrayList<com.example.imdbclone.networking.movies.videos.ResultsItem?>?
-                        val trailerAdapter = VideosAdapter(this@MovieDetail, listTrailer)
-                        rcvTrailers.layoutManager = LinearLayoutManager(
-                            this@MovieDetail,
-                            LinearLayoutManager.HORIZONTAL, false
-                        )
-                        rcvTrailers.adapter = trailerAdapter
-                    } else {
+                    if (!response.isSuccessful) {
 
-                        movSelTxtTrailer.visibility = View.INVISIBLE
-                        rcvTrailers.visibility = View.INVISIBLE
+                        movSelTxtTrailer.visibility = View.GONE
+                        rcvTrailers.visibility = View.GONE
+
                     }
+
+                    listTrailer =
+                        response.body()?.results as ArrayList<com.example.imdbclone.networking.movies.videos.ResultsItem?>?
+                    val trailerAdapter = VideosAdapter(this@MovieDetail, listTrailer)
+                    rcvTrailers.layoutManager = LinearLayoutManager(
+                        this@MovieDetail,
+                        LinearLayoutManager.HORIZONTAL, false
+                    )
+                    rcvTrailers.adapter = trailerAdapter
+
                 }
             }
 
@@ -259,7 +221,11 @@ class MovieDetail : AppCompatActivity() {
             response?.let {
                 runOnUiThread {
 
-                    movie_progress_bar_detail.visibility = View.GONE
+                    if (!response.isSuccessful) {
+                        rcvCast.visibility = View.GONE
+                        movSelTxtCast.visibility = View.GONE
+                    }
+
                     listCast = response.body()?.cast
 
                     val castAdapter = CastAdapter(this@MovieDetail, listCast)
@@ -291,7 +257,11 @@ class MovieDetail : AppCompatActivity() {
             response?.let {
                 runOnUiThread {
 
-                    movie_progress_bar_detail.visibility = View.GONE
+                    if (!response.isSuccessful) {
+                        movTxtSimilarMov.visibility = View.GONE
+                        rcvSimilarMovies.visibility = View.GONE
+                    }
+
                     listMovie = response.body()?.results
                     val movieAdapter = SimilarMoviesAdapter(this@MovieDetail, listMovie)
                     rcvSimilarMovies.layoutManager = LinearLayoutManager(
@@ -347,7 +317,7 @@ class MovieDetail : AppCompatActivity() {
      */
     private fun setVisibility() {
 
-        layout_coordinator_MovieSelected.visibility = View.VISIBLE
+        scrollMovie.visibility = View.VISIBLE
         imageViewMovie.visibility = View.VISIBLE
         imageViewBack.visibility = View.VISIBLE
         textMovieGenre.visibility = View.VISIBLE
@@ -357,9 +327,6 @@ class MovieDetail : AppCompatActivity() {
         movSelTxtDuration.visibility = View.VISIBLE
         movSelTxtReleasedate.visibility = View.VISIBLE
         movSelTxtRat.visibility = View.VISIBLE
-        avi_progress_bar_backdrop.show()
-        avi_progress_bar_poster.show()
-
     }
 
     private fun shareButtonListener() {

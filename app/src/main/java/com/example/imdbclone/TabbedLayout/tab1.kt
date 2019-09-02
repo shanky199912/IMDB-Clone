@@ -18,6 +18,7 @@ import com.example.imdbclone.NetworkCalls.OnBottomReachedListener
 
 import com.example.imdbclone.R
 import com.example.imdbclone.Utils.MovieGenre
+import com.example.imdbclone.Utils.NetworkConnection
 import com.example.imdbclone.adapter.MovieAdapter
 import com.example.imdbclone.networking.Client.API_KEY
 import com.example.imdbclone.networking.Client.retrofitCallBack
@@ -46,12 +47,10 @@ class tab1 : Fragment() {
     private var isFragmentLoaded: Boolean = false
     private var isBroadcastRecieverRegistered = false
 
-    private lateinit var connectivityManager: ConnectivityManager
-    private lateinit var activeNetworkInfo: NetworkInfo
     private var isConnected: Boolean = false
-    private lateinit var mNowShowingAdapter: MovieAdapter
     private lateinit var mConnectivitySnackbar: Snackbar
     private lateinit var mConnectivityBroadcastReciever: ConnectivityBroadcastReciever
+    private lateinit var mNowShowingAdapter: MovieAdapter
 
     private var mNowShowing = arrayListOf<ResultsItem?>()
 
@@ -69,29 +68,10 @@ class tab1 : Fragment() {
         view.rcvNowShowing.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         view.rcvNowShowing.adapter = mNowShowingAdapter
 
-        /*view.rcvNowShowing.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-
-                val visibleItemCount = view.rcvNowShowing.layoutManager!!.childCount
-                val totalItemCount = view.rcvNowShowing.layoutManager!!.itemCount
-                val firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
-
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false
-                        previousTotal = totalItemCount
-                    }
-                }
-                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-
-                    loadMovies()
-                    loading = true
-
-                }
-            }
-        })*/
-
+        if (NetworkConnection().isConnected(context!!)) {
+            isFragmentLoaded = true
+            loadFragment()
+        }
 
         mNowShowingAdapter.setonBottomReachedListener(object : OnBottomReachedListener {
             override fun onBottomReached(position: Int) {
@@ -99,25 +79,20 @@ class tab1 : Fragment() {
                 if (pagesOver) {
                     return
                 } else {
-                    presentPage++
-                    isFragmentLoaded = true
-                    loadFragment()
-
+                    if (NetworkConnection().isConnected(context!!)) {
+                        presentPage++
+                        isFragmentLoaded = true
+                        loadFragment()
+                    }
                 }
             }
 
         })
+        
 
         return view
     }
 
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE)
-        return if (connectivityManager is ConnectivityManager) {
-            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
-            networkInfo?.isConnected ?: false
-        } else false
-    }
 
     override fun onStart() {
         super.onStart()
@@ -174,28 +149,24 @@ class tab1 : Fragment() {
         if (MovieGenre().isGenreListLoaded()) {
             loadMovies()
         } else {
-            loadGenres()
-        }
-    }
 
-    private fun loadGenres() {
+            service.getMovieGenreList(API_KEY, "en-US").enqueue(retrofitCallBack { response, throwable ->
 
-        service.getMovieGenreList(API_KEY, "en-US").enqueue(retrofitCallBack { response, throwable ->
+                response?.let {
 
-            response?.let {
+                    activity!!.runOnUiThread {
 
-                activity!!.runOnUiThread {
-
-                    tab1_progress_bar.visibility = View.GONE
-                    MovieGenre().loadGenreList(response.body()!!.genres)
-                    loadMovies()
+                        tab1_progress_bar.visibility = View.GONE
+                        MovieGenre().loadGenreList(response.body()!!.genres)
+                        loadMovies()
+                    }
                 }
-            }
 
-            throwable?.let {
+                throwable?.let {
 
-            }
-        })
+                }
+            })
+        }
     }
 
 
@@ -212,16 +183,11 @@ class tab1 : Fragment() {
                 activity?.runOnUiThread {
 
                     tab1_progress_bar.visibility = View.GONE
-                    /*  val mNowShowing = response.body()!!.results!!
 
-                      val mNowShowingAdapter = MovieAdapter(context!!, mNowShowing)
-                      view!!.rcvNowShowing.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                      view!!.rcvNowShowing.adapter = mNowShowingAdapter*/
                     for (movie in response.body()!!.results!!) {
                         mNowShowing.add(movie)
                     }
                     mNowShowingAdapter.notifyDataSetChanged()
-
 
                     if (response.body()!!.page == response.body()!!.totalPages)
                         pagesOver = true

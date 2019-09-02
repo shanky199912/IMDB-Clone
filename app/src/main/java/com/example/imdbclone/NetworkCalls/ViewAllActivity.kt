@@ -58,29 +58,6 @@ class ViewAllActivity : AppCompatActivity() {
         rcv_View_All.layoutManager = GridLayoutManager(this@ViewAllActivity, 3)
         rcv_View_All.adapter = mTvShowAdapter
 
-        /* rcv_View_All.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-
-                 super.onScrolled(recyclerView, dx, dy)
-                 val visibleItemCount = mLayoutManager.childCount
-                 val totalItemCount = mLayoutManager.itemCount
-                 val firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-
-                 if (loading) {
-                     if (totalItemCount > previousTotal) {
-                         loading = false
-                         previousTotal = totalItemCount
-                     }
-                 }
-                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                     loadTvShow(mTvShowType)
-                     loading = true
-                 }
-
-             }
-
-         })*/
 
         mTvShowAdapter.setonBottomReachedListener(object : OnBottomReachedListener {
             override fun onBottomReached(position: Int) {

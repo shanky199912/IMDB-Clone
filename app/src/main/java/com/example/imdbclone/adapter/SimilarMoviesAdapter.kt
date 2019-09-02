@@ -2,10 +2,14 @@ package com.example.imdbclone.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imdbclone.Database.AppDatabase
+import com.example.imdbclone.Database.Movie
 import com.example.imdbclone.NetworkCalls.MovieDetail
 import com.example.imdbclone.R
 import com.example.imdbclone.networking.movies.ResultsItem
@@ -62,6 +66,19 @@ class SimilarMovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val intent = Intent(itemView.context, MovieDetail::class.java)
             intent.putExtra("MovieId", movie.id)
             itemView.context.startActivity(intent)
+        }
+
+        itemView.imgheartSimilarMov.setOnClickListener {
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            AppDatabase.getDatabase(itemView.context!!).movieDao().addMovToFav(
+                Movie(
+                    MovieId = movie.id,
+                    PosterPath = movie.posterPath,
+                    name = movie.title!!.trim()
+                )
+            )
+            Toast.makeText(itemView.context!!, "${movie.title.trim()} is added to Favourites", Toast.LENGTH_SHORT).show()
+            itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_sel)
         }
     }
 }

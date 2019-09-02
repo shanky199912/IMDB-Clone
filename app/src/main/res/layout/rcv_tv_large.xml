@@ -72,8 +72,8 @@
                           android:id="@+id/text_tv_genre_large"
                           android:layout_margin="5dp"/>
 
-                <ImageView android:layout_width="25dp"
-                           android:layout_height="30dp"
+                <ImageView android:layout_width="15dp"
+                           android:layout_height="20dp"
                            android:layout_gravity="bottom|end"
                            android:layout_marginEnd="10dp"
                            android:layout_marginTop="5dp"

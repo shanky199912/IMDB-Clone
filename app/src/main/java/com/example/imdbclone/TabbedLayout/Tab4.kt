@@ -68,6 +68,7 @@ class Tab4 : Fragment() {
         view.rcvPopular.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         view.rcvPopular.adapter = mPopularAdapter
 
+        loadMovies()
 
         mPopularAdapter.setonBottomReachedListener(object : OnBottomReachedListener {
             override fun onBottomReached(position: Int) {

@@ -37,15 +37,19 @@ class CastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.cast_image.visibility = View.GONE
         itemView.cast_character.visibility = View.GONE
         itemView.cast_nametv.visibility = View.GONE
-        Picasso.get()
-            .load("https://image.tmdb.org/t/p/original" + cast.profilePath)
-            .fit()
-            .centerCrop()
-            .into(itemView.cast_image)
+        if (cast.profilePath != null) {
+            Picasso.get()
+                .load("https://image.tmdb.org/t/p/original" + cast.profilePath)
+                .fit()
+                .centerCrop()
+                .into(itemView.cast_image)
+        } else {
+            itemView.cast_image.resources.getDrawable(R.drawable.image_not_available)
+        }
 
-        if (cast.name !=null && itemView.cast_nametv.text.trim().isNotEmpty()) {
+        if (cast.name != null && itemView.cast_nametv.text.trim().isNotEmpty()) {
 
-            itemView.cast_nametv.text =  cast.name.trim()
+            itemView.cast_nametv.text = cast.name.trim()
         } else
             itemView.cast_nametv.text = ""
 
@@ -59,11 +63,13 @@ class CastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.cast_character.visibility = View.VISIBLE
         itemView.cast_nametv.visibility = View.VISIBLE
 
+
         itemView.cast_image.setOnClickListener {
 
             val intent = Intent(itemView.context, PersonDetailActivity::class.java)
             intent.putExtra("PersonId", cast.id)
             itemView.context.startActivity(intent)
         }
+
     }
 }

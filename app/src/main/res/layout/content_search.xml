@@ -12,19 +12,20 @@
                                                android:layout_height="match_parent"
                                                android:layout_marginStart="4dp"
                                                android:layout_marginEnd="4dp"
-                                               android:id="@+id/rcv_search">
+                                               android:id="@+id/rcv_search"
+    android:visibility="visible">
 
     </androidx.recyclerview.widget.RecyclerView>
 
 
-    <TextView
+    <ImageView
             android:id="@+id/text_view_empty_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="top|center"
+            android:src="@drawable/no_result_found"
             android:layout_margin="8dp"
-            android:textSize="30sp"
-            android:text="No result Found"
             android:textAlignment="center"
             android:visibility="gone"/>
 
