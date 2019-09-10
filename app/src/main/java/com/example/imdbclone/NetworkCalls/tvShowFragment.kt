@@ -107,7 +107,7 @@ class tvShowFragment : Fragment() {
 
     private fun loadFragment(){
 
-        if (TvGenre().isGenreListLoadedTv()){
+        /*if (TvGenre().isGenreListLoadedTv()){
             loadTvShowsAiringToday()
             loadTvShowOnTheAir()
             loadTvShowPopular()
@@ -115,13 +115,18 @@ class tvShowFragment : Fragment() {
         }
         else{
             loadGenres()
-        }
+        }*/
+        loadGenres()
+        loadTvShowsAiringToday()
+        loadTvShowOnTheAir()
+        loadTvShowPopular()
+        loadTvShowTopRated()
     }
 
     private fun loadGenres(){
 
-        service.getTvGenreList(API_KEY,"en-US").enqueue(retrofitCallBack{
-            response, throwable ->
+        service!!.getTvGenreList(API_KEY,"en-US").enqueue(retrofitCallBack{
+                response, _ ->
 
             response?.let {
 
@@ -154,7 +159,7 @@ class tvShowFragment : Fragment() {
 
     private fun loadTvShowsAiringToday() {
 
-        service.listAiringToday(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
+        service!!.listAiringToday(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
 
             response?.let {
                 activity!!.runOnUiThread {
@@ -179,7 +184,7 @@ class tvShowFragment : Fragment() {
 
     private fun loadTvShowOnTheAir() {
 
-        service.listOnTheAir(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
+        service!!.listOnTheAir(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
 
             response?.let {
                 activity!!.runOnUiThread {
@@ -204,7 +209,7 @@ class tvShowFragment : Fragment() {
 
     private fun loadTvShowPopular() {
 
-        service.listPopular(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
+        service!!.listPopular(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
 
             response?.let {
                 activity!!.runOnUiThread {
@@ -228,7 +233,7 @@ class tvShowFragment : Fragment() {
 
     private fun loadTvShowTopRated() {
 
-        service.listTopRated(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
+        service!!.listTopRated(API_KEY, presentPage).enqueue(retrofitCallBack { response, throwable ->
             response?.let {
                 activity!!.runOnUiThread {
 

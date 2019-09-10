@@ -61,6 +61,8 @@ dependencies {
 
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
 
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
     implementation "androidx.room:room-runtime:2.1.0"
     kapt "androidx.room:room-compiler:2.1.0"
 

@@ -73,9 +73,9 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
     private fun setGenres(holder: MovieViewHolder, resultsItem: ResultsItem?) {
 
         var genreStr = ""
-        for (i in 0 until resultsItem!!.genreIds!!.size) {
+        for (element in resultsItem!!.genreIds!!) {
 
-            genreStr += MovieGenre().getGenreName(resultsItem.genreIds!![i]!!) + " ,"
+            genreStr += MovieGenre().getGenreName(element!!) + " ,"
 
 
         }

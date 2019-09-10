@@ -20,13 +20,17 @@ import com.example.imdbclone.R
 import com.example.imdbclone.Utils.MovieGenre
 import com.example.imdbclone.Utils.NetworkConnection
 import com.example.imdbclone.adapter.MovieAdapter
+import com.example.imdbclone.networking.Client
 import com.example.imdbclone.networking.Client.API_KEY
 import com.example.imdbclone.networking.Client.retrofitCallBack
 import com.example.imdbclone.networking.Client.service
+import com.example.imdbclone.networking.movies.Genre
+import com.example.imdbclone.networking.movies.ResponseNowShowing
 import com.example.imdbclone.networking.movies.ResultsItem
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_tab1.*
 import kotlinx.android.synthetic.main.fragment_tab1.view.rcvNowShowing
+import retrofit2.Call
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,11 +45,10 @@ class tab1 : Fragment() {
 
     private var pagesOver = false
     private var presentPage = 1
-    private var loading = true
-    private var previousTotal = 0
-    private var visibleThreshold = 5
     private var isFragmentLoaded: Boolean = false
     private var isBroadcastRecieverRegistered = false
+    private lateinit var call: Call<Genre>
+    private lateinit var call2:Call<ResponseNowShowing>
 
     private var isConnected: Boolean = false
     private lateinit var mConnectivitySnackbar: Snackbar
@@ -65,7 +68,8 @@ class tab1 : Fragment() {
         view!!.rcvNowShowing.layoutManager = mLayoutManager as RecyclerView.LayoutManager?
 
         mNowShowingAdapter = MovieAdapter(context!!, mNowShowing)
-        view.rcvNowShowing.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        view.rcvNowShowing.layoutManager =
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         view.rcvNowShowing.adapter = mNowShowingAdapter
 
         if (NetworkConnection().isConnected(context!!)) {
@@ -88,7 +92,6 @@ class tab1 : Fragment() {
             }
 
         })
-        
 
         return view
     }
@@ -111,17 +114,18 @@ class tab1 : Fragment() {
                 Snackbar.LENGTH_INDEFINITE
             )
             mConnectivitySnackbar.show()
-            mConnectivityBroadcastReciever = ConnectivityBroadcastReciever(object : ConnectivityRecieverListener {
-                override fun onNetworkConnectionConnected() {
+            mConnectivityBroadcastReciever =
+                ConnectivityBroadcastReciever(object : ConnectivityRecieverListener {
+                    override fun onNetworkConnectionConnected() {
 
-                    mConnectivitySnackbar.dismiss()
-                    isFragmentLoaded = true
-                    loadFragment()
-                    isBroadcastRecieverRegistered = false
-                    activity!!.unregisterReceiver(mConnectivityBroadcastReciever)
-                }
+                        mConnectivitySnackbar.dismiss()
+                        isFragmentLoaded = true
+                        loadFragment()
+                        isBroadcastRecieverRegistered = false
+                        activity!!.unregisterReceiver(mConnectivityBroadcastReciever)
+                    }
 
-            })
+                })
 
             val intentFilter = IntentFilter("android.net.conn.CONNECTIVITY_CHANGE")
             isBroadcastRecieverRegistered = true
@@ -144,28 +148,41 @@ class tab1 : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        if (call != null) call.cancel()
+        if (call2!=null) call2.cancel()
+
+    }
+
     private fun loadFragment() {
 
         if (MovieGenre().isGenreListLoaded()) {
             loadMovies()
         } else {
+            service!!.getMovieGenreList(API_KEY, "en-US")
+                .enqueue(retrofitCallBack { response, throwable ->
 
-            service.getMovieGenreList(API_KEY, "en-US").enqueue(retrofitCallBack { response, throwable ->
+                    response?.let {
 
-                response?.let {
+                        activity!!.runOnUiThread {
 
-                    activity!!.runOnUiThread {
+                            if (!response.isSuccessful){
+                                call.clone()
+                                call.enqueue(retrofitCallBack())
+                            }
 
-                        tab1_progress_bar.visibility = View.GONE
-                        MovieGenre().loadGenreList(response.body()!!.genres)
-                        loadMovies()
+                            tab1_progress_bar.visibility = View.GONE
+                            MovieGenre().loadGenreList(response.body()!!.genres)
+                            loadMovies()
+                        }
                     }
-                }
 
-                throwable?.let {
+                    throwable?.let {
 
-                }
-            })
+                    }
+                })
         }
     }
 
@@ -176,32 +193,33 @@ class tab1 : Fragment() {
             return
         }
 
-        service.listNowShowing(API_KEY, presentPage, "US").enqueue(retrofitCallBack { response, throwable ->
+        service!!.listNowShowing(API_KEY, presentPage, "US")
+            .enqueue(retrofitCallBack { response, throwable ->
 
-            response?.let {
+                response?.let {
 
-                activity?.runOnUiThread {
+                    activity?.runOnUiThread {
 
-                    tab1_progress_bar.visibility = View.GONE
+                        tab1_progress_bar.visibility = View.GONE
 
-                    for (movie in response.body()!!.results!!) {
-                        mNowShowing.add(movie)
+                        for (movie in response.body()!!.results!!) {
+                            mNowShowing.add(movie)
+                        }
+                        mNowShowingAdapter.notifyDataSetChanged()
+
+                        if (response.body()!!.page == response.body()!!.totalPages)
+                            pagesOver = true
+                        else
+                            presentPage++
+
                     }
-                    mNowShowingAdapter.notifyDataSetChanged()
-
-                    if (response.body()!!.page == response.body()!!.totalPages)
-                        pagesOver = true
-                    else
-                        presentPage++
 
                 }
 
-            }
+                throwable?.let {
 
-            throwable?.let {
-
-            }
-        })
+                }
+            })
 
     }
 

@@ -4,7 +4,7 @@ import com.example.imdbclone.networking.movies.GenresItem
 
 class MovieGenre {
 
-    private val genreMap: HashMap<Int, String> = hashMapOf()
+    private val genreMap: HashMap<Int?, String?> = hashMapOf()
     fun isGenreListLoaded(): Boolean {
         return (genreMap!=null)
     }

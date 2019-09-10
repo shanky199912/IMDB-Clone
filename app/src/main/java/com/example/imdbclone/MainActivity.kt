@@ -41,7 +41,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
 
         navView.setNavigationItemSelectedListener(this)
@@ -67,23 +71,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed()
-                return
-            }
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed()
+                    return
+                }
 
-            doubleBackToExitPressedOnce = true
-            Toast.makeText(this, "Press Again To Exit", Toast.LENGTH_SHORT).show()
+                doubleBackToExitPressedOnce = true
+                Toast.makeText(this, "Press Again To Exit", Toast.LENGTH_SHORT).show()
 
-            Handler().postDelayed({
-                doubleBackToExitPressedOnce = false
-            }, 2000)
+                Handler().postDelayed({
+                    doubleBackToExitPressedOnce = false
+                }, 2000)
+
         }
-
         if (search_view.isSearchOpen) {
             search_view.closeSearch()
-        } else
-            super.onBackPressed()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -106,7 +109,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        if (toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
 
