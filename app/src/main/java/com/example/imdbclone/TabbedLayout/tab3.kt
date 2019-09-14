@@ -37,18 +37,7 @@ class tab3 : Fragment() {
 
     private var pagesOver = false
     private var presentPage = 1
-    private var loading = true
-    private var previousTotal = 0
-    private var visibleThreshold = 5
-    private var isFragmentLoaded: Boolean = false
-    private var isBroadcastRecieverRegistered = false
-
-    private lateinit var connectivityManager: ConnectivityManager
-    private lateinit var activeNetworkInfo: NetworkInfo
-    private var isConnected: Boolean = false
     private lateinit var mTopRatedAdapter: MovieAdapter
-    private lateinit var mConnectivitySnackbar: Snackbar
-    private lateinit var mConnectivityBroadcastReciever: ConnectivityBroadcastReciever
 
     private var mTopRated = arrayListOf<ResultsItem?>()
 

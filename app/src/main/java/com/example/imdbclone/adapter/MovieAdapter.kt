@@ -75,8 +75,9 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
         var genreStr = ""
         for (element in resultsItem!!.genreIds!!) {
 
-            genreStr += MovieGenre().getGenreName(element!!) + " ,"
-
+            if(element == null) continue
+            if (MovieGenre().getGenreName(element) == null) continue
+            genreStr += MovieGenre().getGenreName(element) + " ,"
 
         }
         if (genreStr.isNotEmpty()) {

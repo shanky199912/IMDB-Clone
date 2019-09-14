@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_tab1.*
 import kotlinx.android.synthetic.main.fragment_tab1.view.rcvNowShowing
 import retrofit2.Call
+import timber.log.Timber
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +50,7 @@ class tab1 : Fragment() {
     private var isFragmentLoaded: Boolean = false
     private var isBroadcastRecieverRegistered = false
     private lateinit var call: Call<Genre>
-    private lateinit var call2:Call<ResponseNowShowing>
+    private lateinit var call2: Call<ResponseNowShowing>
 
     private var isConnected: Boolean = false
     private lateinit var mConnectivitySnackbar: Snackbar
@@ -148,13 +150,6 @@ class tab1 : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        if (call != null) call.cancel()
-        if (call2!=null) call2.cancel()
-
-    }
 
     private fun loadFragment() {
 
@@ -168,13 +163,9 @@ class tab1 : Fragment() {
 
                         activity!!.runOnUiThread {
 
-                            if (!response.isSuccessful){
-                                call.clone()
-                                call.enqueue(retrofitCallBack())
-                            }
-
                             tab1_progress_bar.visibility = View.GONE
                             MovieGenre().loadGenreList(response.body()!!.genres)
+                            Timber.i("Genre list loaded")
                             loadMovies()
                         }
                     }

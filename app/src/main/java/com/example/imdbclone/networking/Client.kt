@@ -20,7 +20,7 @@ object Client {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    var service: TmdbService? = retrofitClient.create(TmdbService::class.java)
+    var service: TmdbService = retrofitClient.create(TmdbService::class.java)
 
     fun <T> retrofitCallBack(fn: (Response<T>?, Throwable?) -> Unit): Callback<T> {
         return object : Callback<T> {

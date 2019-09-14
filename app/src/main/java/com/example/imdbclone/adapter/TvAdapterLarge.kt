@@ -27,7 +27,13 @@ class TvAdapterLarge(private val context: Context, private val listTv: ArrayList
     RecyclerView.Adapter<TvHolderLarge>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvHolderLarge {
-        return TvHolderLarge(LayoutInflater.from(context).inflate(R.layout.rcv_tv_large, parent, false))
+        return TvHolderLarge(
+            LayoutInflater.from(context).inflate(
+                R.layout.rcv_tv_large,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -46,9 +52,11 @@ class TvAdapterLarge(private val context: Context, private val listTv: ArrayList
     private fun setGenres(holder: TvHolderLarge, resultsItem: ResultsItem) {
 
         var genreStr = ""
-        for (i in 0 until resultsItem.genreIds!!.size) {
+        for (element in resultsItem.genreIds!!) {
 
-            genreStr += TvGenre().getGenreNameTv(resultsItem.genreIds[i]!!) + " ,"
+            if (element == null) continue
+            if (TvGenre().getGenreNameTv(element) == null) continue
+            genreStr += TvGenre().getGenreNameTv(element) + " ,"
 
 
         }
@@ -101,7 +109,11 @@ class TvHolderLarge(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     name = tv.name!!.trim()
                 )
             )
-            Toast.makeText(itemView.context!!, "${tv.name.trim()} is added to Favourites", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                itemView.context!!,
+                "${tv.name.trim()} is added to Favourites",
+                Toast.LENGTH_SHORT
+            ).show()
             itemView.img_heart_tv_large.setImageResource(R.drawable.baselinefav_sel)
         }
 

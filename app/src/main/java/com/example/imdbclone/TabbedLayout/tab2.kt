@@ -101,7 +101,7 @@ class tab2 : Fragment() {
             return
         }
 
-        service.listUpcoming(API_KEY, presentPage, "US").enqueue(retrofitCallBack { response, throwable ->
+        service!!.listUpcoming(API_KEY, presentPage, "US").enqueue(retrofitCallBack { response, throwable ->
 
             response?.let {
 
