@@ -31,6 +31,14 @@ class SimilarMoviesAdapter(private val context: Context, private val listMovie: 
         val movie = listMovie?.get(position)
         movie?.let { holder.bind(it) }
 
+        if (AppDatabase.getDatabase(context).movieDao().isMovieFav(this.listMovie!![position]!!.id!!)){
+            holder.itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_sel)
+            holder.itemView.imgheartSimilarMov.isEnabled = false
+        }
+        else{
+            holder.itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_notsel)
+            holder.itemView.imgheartSimilarMov.isEnabled = true
+        }
         //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -79,6 +87,7 @@ class SimilarMovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             Toast.makeText(itemView.context!!, "${movie.title.trim()} is added to Favourites", Toast.LENGTH_SHORT).show()
             itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_sel)
+            itemView.imgheartSimilarMov.isEnabled = false
         }
     }
 }

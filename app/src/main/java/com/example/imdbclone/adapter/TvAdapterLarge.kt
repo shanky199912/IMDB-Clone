@@ -44,6 +44,14 @@ class TvAdapterLarge(private val context: Context, private val listTv: ArrayList
         val tv = listTv[position]
         holder.bind(tv)//To change body of created functions use File | Settings | File Templates.
 
+        if (AppDatabase.getDatabase(context).tvshowDao().isShowFav(listTv[position].id!!)){
+            holder.itemView.img_heart_tv_large.setImageResource(R.drawable.baselinefav_sel)
+            holder.itemView.img_heart_tv_large.isEnabled = false
+        }
+        else{
+            holder.itemView.img_heart_tv_large.setImageResource(R.drawable.baselinefav_notsel)
+            holder.itemView.img_heart_tv_large.isEnabled = true
+        }
 
         setGenres(holder, listTv[position])
     }
@@ -115,6 +123,7 @@ class TvHolderLarge(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 Toast.LENGTH_SHORT
             ).show()
             itemView.img_heart_tv_large.setImageResource(R.drawable.baselinefav_sel)
+            itemView.img_heart_tv_large.isEnabled = false
         }
 
     }

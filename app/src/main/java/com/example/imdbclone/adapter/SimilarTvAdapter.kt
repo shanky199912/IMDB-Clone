@@ -29,7 +29,14 @@ class SimilarTvAdapter(private val context: Context, private val listTv: ArrayLi
 
     override fun onBindViewHolder(holder: TvHolderSimilar, position: Int) {
         val tv = listTv[position]
-        holder.bind(tv)//To change body of created functions use File | Settings | File Templates.
+        holder.bind(tv)
+        if (AppDatabase.getDatabase(context).tvshowDao().isShowFav(listTv[position].id!!.toInt())) {
+            holder.itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_sel)
+            holder.itemView.imgheartSimilarMov.isEnabled = false
+        } else {
+            holder.itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_notsel)
+            holder.itemView.imgheartSimilarMov.isEnabled = true
+        }//To change body of created functions use File | Settings | File Templates.
     }
 
 }
@@ -67,6 +74,7 @@ class TvHolderSimilar(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             Toast.makeText(itemView.context!!, "${tv.name.trim()} is added to Favourites", Toast.LENGTH_SHORT).show()
             itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_sel)
+            itemView.imgheartSimilarMov.isEnabled = false
         }
     }
 }

@@ -14,8 +14,8 @@ interface TvDao {
     @Delete
     fun removeShowFromFav(shows: TvShows)
 
-    /*@Query("Select * from fav_tvShow_table where TvShowId=:tvShowId")
-    fun isShowFav(tvShowId: Int): Boolean*/
+    @Query("Select * from fav_tvShow_table where TvShowId=:tvShowId")
+    fun isShowFav(tvShowId: Int): Boolean
 
     @Query("Select * from fav_tvShow_table")
     fun getFavTv(): List<TvShows>

@@ -37,7 +37,8 @@ import retrofit2.Response
 class MovieDetail : AppCompatActivity() {
 
     private var listCast: ArrayList<CastItem?>? = arrayListOf()
-    private var listTrailer: ArrayList<com.example.imdbclone.networking.movies.videos.ResultsItem?>? = arrayListOf()
+    private var listTrailer: ArrayList<com.example.imdbclone.networking.movies.videos.ResultsItem?>? =
+        arrayListOf()
     private var listMovie: ArrayList<ResultsItem?>? = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +55,8 @@ class MovieDetail : AppCompatActivity() {
         avi_progress_bar_backdrop.hide()
         avi_progress_bar_poster.hide()
 
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo?.isConnected == true
 
@@ -122,7 +124,6 @@ class MovieDetail : AppCompatActivity() {
                     textMovieName.visibility = View.GONE
 
                     if (response.body()!!.title != null) {
-
                         textMovieName.text = response.body()?.originalTitle
                     } else
                         textMovieName.text = ""
@@ -150,12 +151,14 @@ class MovieDetail : AppCompatActivity() {
                     movSelTxtReleasedate.visibility = View.GONE
 
                     if (response.body()!!.runtime != null) {
-                        movSelTxtDuration.text = "Duration: ${response.body()?.runtime.toString()} minutes"
+                        movSelTxtDuration.text =
+                            "Duration: ${response.body()?.runtime.toString()} minutes"
                     } else
                         movSelTxtDuration.text = ""
 
                     if (response.body()!!.releaseDate != null) {
-                        movSelTxtReleasedate.text = "Release Date: ${response.body()?.releaseDate.toString()}"
+                        movSelTxtReleasedate.text =
+                            "Release Date: ${response.body()?.releaseDate.toString()}"
                     } else
                         movSelTxtReleasedate.text = ""
 
@@ -252,32 +255,33 @@ class MovieDetail : AppCompatActivity() {
      */
     private fun loadSimilarMovies(mMovieId: Int) {
 
-        service.getSimilarMovies(mMovieId, API_KEY, 1).enqueue(retrofitCallBack { response, throwable ->
+        service.getSimilarMovies(mMovieId, API_KEY, 1)
+            .enqueue(retrofitCallBack { response, throwable ->
 
-            response?.let {
-                runOnUiThread {
+                response?.let {
+                    runOnUiThread {
 
-                    if (!response.isSuccessful) {
-                        movTxtSimilarMov.visibility = View.GONE
-                        rcvSimilarMovies.visibility = View.GONE
+                        if (!response.isSuccessful) {
+                            movTxtSimilarMov.visibility = View.GONE
+                            rcvSimilarMovies.visibility = View.GONE
+                        }
+
+                        listMovie = response.body()?.results
+                        val movieAdapter = SimilarMoviesAdapter(this@MovieDetail, listMovie)
+                        rcvSimilarMovies.layoutManager = LinearLayoutManager(
+                            this@MovieDetail,
+                            LinearLayoutManager.HORIZONTAL, false
+                        )
+                        rcvSimilarMovies.adapter = movieAdapter
                     }
-
-                    listMovie = response.body()?.results
-                    val movieAdapter = SimilarMoviesAdapter(this@MovieDetail, listMovie)
-                    rcvSimilarMovies.layoutManager = LinearLayoutManager(
-                        this@MovieDetail,
-                        LinearLayoutManager.HORIZONTAL, false
-                    )
-                    rcvSimilarMovies.adapter = movieAdapter
                 }
-            }
 
-            throwable?.let {
+                throwable?.let {
 
-                movTxtSimilarMov.visibility = View.INVISIBLE
-                rcvSimilarMovies.visibility = View.INVISIBLE
-            }
-        })
+                    movTxtSimilarMov.visibility = View.INVISIBLE
+                    rcvSimilarMovies.visibility = View.INVISIBLE
+                }
+            })
     }
 
     /**
@@ -348,7 +352,8 @@ class MovieDetail : AppCompatActivity() {
 
         movSelFav.setOnClickListener {
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            Toast.makeText(this, "Add to Favourite feature to be out soon!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Add to Favourite feature to be out soon!", Toast.LENGTH_LONG)
+                .show()
         }
     }
 }

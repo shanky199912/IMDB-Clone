@@ -40,7 +40,16 @@ class TvAdapterSmall(private val context: Context, private val listTv: ArrayList
             onBottomReachedListener.onBottomReached(position)
         }
         val tv = listTv[position]
-        holder.bind(tv)//To change body of created functions use File | Settings | File Templates.
+        holder.bind(tv)
+        if (AppDatabase.getDatabase(context).tvshowDao().isShowFav(listTv[position].id!!)){
+            holder.itemView.img_heart_tv_small.setImageResource(R.drawable.baselinefav_sel)
+            holder.itemView.img_heart_tv_small.isEnabled = false
+        }
+        else{
+            holder.itemView.img_heart_tv_small.setImageResource(R.drawable.baselinefav_notsel)
+            holder.itemView.img_heart_tv_small.isEnabled = true
+        }
+        //To change body of created functions use File | Settings | File Templates.
     }
 
     public fun setonBottomReachedListener(onBottomReachedListener: OnBottomReachedListener) {
@@ -85,6 +94,7 @@ class TvHolderSmall(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
             Toast.makeText(itemView.context!!, "${tv.name.trim()} is added to Favourites", Toast.LENGTH_SHORT).show()
             itemView.img_heart_tv_small.setImageResource(R.drawable.baselinefav_sel)
+            itemView.img_heart_tv_small.isEnabled = false
         }
 
     }

@@ -65,7 +65,7 @@ class MovieAdapter(val context: Context, private val listMovie: ArrayList<Result
         //To change body of created functions use File | Settings | File Templates.
     }
 
-    public fun setonBottomReachedListener(onBottomReachedListener: OnBottomReachedListener) {
+     fun setonBottomReachedListener(onBottomReachedListener: OnBottomReachedListener) {
 
         this.onBottomReachedListener = onBottomReachedListener
     }
@@ -145,21 +145,6 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 itemView.imgHeart.isEnabled = false
             }
 
-            // remove movie from fav.
-            /*if (AppDatabase.getDatabase(context!!).movieDao().isMovieFav(movie.id!!)) {
-                itemView.imgHeart.setImageResource(R.drawable.baselinefav_sel)
-                itemView.imgHeart.setOnClickListener {
-                    AppDatabase.getDatabase(context!!).movieDao().removeMovieFromFav(
-                        Movie(
-                            MovieId = movie.id,
-                            PosterPath = movie.posterPath,
-                            name = movie.title
-                        )
-                    )
-                    Toast.makeText(context!!, "Removed from favourites", Toast.LENGTH_SHORT).show()
-                    itemView.imgHeart.setImageResource(R.drawable.baselinefav_notsel)
-                }
-            }*/
 
         }
 

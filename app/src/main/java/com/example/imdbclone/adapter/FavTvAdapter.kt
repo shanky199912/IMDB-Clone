@@ -32,15 +32,15 @@ class FavTvAdapter(private val context: Context, private val listFavTv: ArrayLis
 
     override fun onBindViewHolder(holder: FavTvHolder, position: Int) {
         val tv = listFavTv[position]
-        tv.let { holder.onBind(it) }
 
-        if (AppDatabase.getDatabase(context).movieDao().isMovieFav(listFavTv[position].id!!.toInt())) {
-            holder.itemView.imgHeart.setImageResource(R.drawable.baselinefav_sel)
-            holder.itemView.imgHeart.isEnabled = false
+        if (AppDatabase.getDatabase(context).tvshowDao().isShowFav(listFavTv[position].TvShowId!!.toInt())) {
+            holder.itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_sel)
+            holder.itemView.imgheartSimilarMov.isEnabled = false
         } else {
-            holder.itemView.imgHeart.setImageResource(R.drawable.baselinefav_notsel)
-            holder.itemView.imgHeart.isEnabled = true
+            holder.itemView.imgheartSimilarMov.setImageResource(R.drawable.baselinefav_notsel)
+            holder.itemView.imgheartSimilarMov.isEnabled = true
         }
+        tv.let { holder.onBind(it) }
         //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -63,8 +63,8 @@ class FavTvHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 txtSimilarMovie.text = ""
 
             itemView.crdviewSimilarMovies.setOnClickListener {
-                val i = Intent(itemView.context!!, TvDetailActivity::class.java)
-                i.putExtra("Tv_Id", tv.id)
+                val i = Intent(itemView.context, TvDetailActivity::class.java)
+                i.putExtra("Tv_Id", tv.TvShowId)
                 itemView.context.startActivity(i)
             }
         }
