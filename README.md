@@ -14,9 +14,8 @@
 <img src="https://github.com/shanky199912/IMDB-Clone/blob/master/imgs/Img%20new/Screenshot_2019-11-11-21-08-59-59_8c901214abc1cfaaadc86a5ca3039378.png" height=600 width=350></img>
 <img src="https://github.com/shanky199912/IMDB-Clone/blob/master/imgs/Img%20new/Screenshot_2019-11-11-21-09-15-26_8c901214abc1cfaaadc86a5ca3039378.png" height=600 width=350></img>
 ### TvShow details
-<img src="" height=600 width=350></img>
+<img src="https://github.com/shanky199912/IMDB-Clone/blob/master/imgs/Img%20new/Screenshot_2019-11-11-21-09-45-31_8c901214abc1cfaaadc86a5ca3039378.png" height=600 width=350></img>
 ### Favourite
-<img src="/imgs/Screenshot_2019-09-03-22-41-03-96.png" height=800 width=350></img>
+<img src="https://github.com/shanky199912/IMDB-Clone/blob/master/imgs/Img%20new/Screenshot_2019-11-11-21-10-04-27_8c901214abc1cfaaadc86a5ca3039378.png" height=800 width=350></img>
 ### Search
 <img src="/imgs/Screenshot_2019-09-03-22-37-51-29_8c901214abc1cfaaadc86a5ca3039378.png" height=600 width=350></img>
-<img src="" height=600 width=350></img>
